@@ -1,0 +1,20 @@
+{
+  "song_title": "Warrior",
+  "artist": "Aurora",
+  "interpretation_summary": "The song \"Warrior\" explores themes of emotional struggle, resilience, and hope. The narrator expresses feelings of sadness and isolation but also reveals an inner strength to fight through darkness using love as a guiding force. It portrays a journey from despair towards enlightenment and empowerment, advocating for love to conquer fear and mental barriers.",
+  "dominant_emotions": ["sadness", "hope", "strength", "isolation", "resilience"],
+  "emotional_arc": "The emotional progression moves from sorrow and vulnerability through a battle with inner darkness to eventual empowerment and optimism marked by embracing love and light.",
+  "narrator_perspective": "First-person narrator reflecting personal feelings and struggles, yet speaking with a universal voice that connects to broader human experiences.",
+  "key_evidence_lines": [
+    "I fall asleep in my own tears",
+    "I cry for the world, for everyone",
+    "I can't recall last time I opened my eyes to see the world as beautiful",
+    "And I built a cage to hide in",
+    "I'm trying to battle the night",
+    "Let love conquer your mind",
+    "I am a warrior-ior-ior-ior",
+    "I hold a sword to guide me",
+    "Underneath darkened skies There's a light kept alive"
+  ],
+  "uncertainty_notes": "Interpretation may vary as song lyrics are metaphorical and poetic; the exact nature of the 'battle' and the identity of the external or internal challenges are not explicitly stated."
+}
