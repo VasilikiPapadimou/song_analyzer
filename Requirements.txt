@@ -1,53 +1,6 @@
-Goal : Understand how an AI system works end-to-end, with clean engineering structure, and without needing advanced coding.
-User provides lyrics
-			↓
-Preprocessing layer:
-(clean text, split into sections / lines)
-			↓
-LLM analysis layer:
-(prompt asks for structured interpretation)
-			↓
-Structured output: 
-(JSON with themes, emotions, symbols, explanation, evidence)
-			↓
-Evaluation layer:
-(check format, evidence support, consistency, missing fields)
-			↓
-Presentation layer:
-(CLI output first, maybe simple UI later)
-
---------------------------------------------------------------------------------------------
-- Initially lyrics should be manually entered inside a folder. 
-    I will change the path inside the code with the correct lyrics file each time 
-- Next step is to scrape for the lyrics inside pages
-or get the lyrics from an API
---------------------------------------------------------------------------------------------
-## Repo structure
-
-`song-meaning-analyzer/
-│
-├── data/
-│   └── songs/
-│       ├── song1.txt
-│       └── song2.txt
-│
-├── outputs/
-│   ├── raw/
-│   └── parsed/
-│
-├── src/
-│   ├── [main.py]
-│   ├── [config.py]
-│   ├── [loader.py]
-│   ├── [prompt_builder.py]
-│   ├── [llm_client.py]
-│   ├── [parser.py]
-│   ├── [evaluator.py]
-│   └── [utils.py]
-│
-├── [README.md](http://readme.md/)
-├── requirements.txt
-└── .env
---------------------------------------------------------------------------------------------
-We can also do (after evaluation) a filtering like read all the parsed folder data and tell me which songs 
-speak about x,y,z
+main runs
+file manager runs
+input preprocess runs
+prompts 
+models
+analyzer

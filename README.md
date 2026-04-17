@@ -69,19 +69,28 @@ Think of it like a mini ETL pipeline:
 song-meaning-analyzer/
 │
 ├── data/
-│ └── songs/ # Input lyrics files
+│ └── songs/
 │ ├── song1.txt
 │ └── song2.txt
 │
-├── outputs/
-│ ├── raw/ # Raw LLM responses
-│ └── parsed/ # Clean structured JSON
+├── output/
+│ ├── raw/
+│ ├── parsed/
+│ └── evaluation/
 │
 ├── src/
-│ ├── main.py # Entry point
-│ ├── config.py # Configurations (API keys, settings)
-│ ├── loader.py # Loads song files
+│ ├── main.py --> orchestration only
+│ ├── config.py --> defaults and settings
+│ ├── models.py --> structure of the data /schema
+│ ├── prompts.py --> contains the prompt template
+│ ├── file_manager.py --> files and paths : read lyrics, creates output filename, saves json, finds the laste 10 raw files, creates files if they dont exist
+│ ├── analyzer.py --> llm interation
+│ ├── aggregator.py --> raw jsons as inputs -> statistics/summaries as outputs
+│ ├── evaluator.py --> quality checks of system
+│ └── utils.py --> helpful things that do not go anywhere else
 │
+├── .env
+├── requirements.txt
 └── README.md
 
 ---
@@ -113,14 +122,14 @@ Outputs will be generated in:
 outputs/raw/ → raw LLM response
 outputs/parsed/ → structured JSON
 📄 Example Output
-{
+{{
   "song_title": "Example Song",
   "artist": "Unknown",
-  "dominant_emotions": ["melancholy", "nostalgia"],
+  "dominant_emotions": ["melancholy","nostalgia"],
   "emotional_arc": "Starts reflective, builds to emotional intensity, ends in acceptance",
-  "main_themes": ["loss", "memory", "identity"],
+  "main_themes": ["loss","memory","identity"],
   "narrator_perspective": "first_person",
-  "key_symbols_or_images": ["rain", "empty streets"],
+  "key_symbols_or_images": ["rain","empty streets"],
   "interpretation_summary": "A reflection on past relationships and emotional growth",
   "evidence_lines": [
     "I walk alone through the rain",
@@ -128,5 +137,5 @@ outputs/parsed/ → structured JSON
   ],
   "ambiguities_or_uncertainties": "Unclear if the narrator seeks closure or remains stuck",
   "confidence_note": "Moderate confidence due to metaphor-heavy lyrics"
-}
+}}
 ```
