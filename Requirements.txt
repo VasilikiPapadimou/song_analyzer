@@ -1,6 +1,0 @@
-main runs
-file manager runs
-input preprocess runs
-prompts 
-models
-analyzer

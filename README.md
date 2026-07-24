@@ -1,43 +1,5 @@
 # song_analyzer
 
-# 🎵 Song Meaning Analyzer
-
-An AI-powered CLI application that analyzes song lyrics and extracts structured insights such as emotions, themes, narrative perspective, and symbolic meaning.
-
-This project demonstrates how to integrate LLMs into a structured data pipeline — transforming unstructured text (lyrics) into machine-readable JSON outputs.
-
----
-
-## 🚀 Project Overview
-
-The goal of this project is to:
-
-- Take raw song lyrics as input
-- Analyze them using an LLM (OpenAI API)
-- Extract meaningful structured information
-- Save results for further processing or analysis
-
-This is not just a text generator — it is designed as a **mini AI system** with:
-
-- Input pipeline
-- Prompt engineering layer
-- Structured output enforcement
-- Storage layer (raw + parsed outputs)
-
----
-
-## 🧠 What This Project Demonstrates
-
-This project is built to showcase skills relevant to **AI Systems Architecture**:
-
-- Prompt design for structured outputs (JSON schema enforcement)
-- Handling unstructured → structured data transformation
-- Building reproducible pipelines for LLM-based systems
-- File-based data workflows (inputs → outputs)
-- Separation of concerns (loader, config, main logic)
-
----
-
 ## 🏗️ System Flow
 
 [Song Lyrics (.txt)]
@@ -83,8 +45,8 @@ song-meaning-analyzer/
 │ ├── config.py --> defaults and settings
 │ ├── models.py --> structure of the data /schema
 │ ├── prompts.py --> contains the prompt template
-│ ├── file_manager.py --> files and paths : read lyrics, creates output filename, saves json, finds the laste 10 raw files, creates files if they dont exist
-│ ├── analyzer.py --> llm interation
+│ ├── file_manager.py --> files and paths : read lyrics, creates output filename, saves json, finds the last 10 raw files, creates files if they dont exist
+│ ├── analyzer.py --> llm iteration
 │ ├── aggregator.py --> raw jsons as inputs -> statistics/summaries as outputs
 │ ├── evaluator.py --> quality checks of system
 │ └── utils.py --> helpful things that do not go anywhere else
