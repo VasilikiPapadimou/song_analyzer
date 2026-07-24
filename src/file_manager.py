@@ -3,7 +3,14 @@ import os
 import logging
 import json
 from pathlib import Path
+''' 
+    This is where we will have everything related to:
+        - path creation, 
+        - input text file creation/open/save
+        - output text file creation and 
+        - parsed json file in dict format
 
+'''
 # points to /song_analyzer (project root)
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,10 +29,6 @@ def input_read(file_path):
         return ""
 
 #--------------------------Output processing--------------------------#
-'''
-The filename inside the output raw file will be the json in python dictionary format (parsed)
-the filename will 
-'''
 def ensure_output_dirs():
     os.makedirs("output/raw", exist_ok=True)
     os.makedirs("output/parsed", exist_ok=True)
