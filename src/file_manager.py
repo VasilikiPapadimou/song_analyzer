@@ -64,8 +64,12 @@ def create_song_folder(artist: str, song_title: str, processed_at: datetime | No
     date_part = current.strftime("%Y-%m-%d")
 
     # song folder creation
-    song_folder_name = (f"{make_path_safe(song_title)}_{make_path_safe(artist)}_{date_part}")
-
+    #song_folder_name = (f"{make_path_safe(song_title)}_{make_path_safe(artist)}_{date_part}")
+    song_folder_name = (
+        f"{make_path_safe(song_title)}_"
+        f"{make_path_safe(artist)}_"
+        f"{date_part}"
+    )
     # week+songfolder = directory creation
     song_folder = DATA_DIR / week_id / song_folder_name
     song_folder.mkdir(parents=True, exist_ok=True)

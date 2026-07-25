@@ -1,15 +1,16 @@
 {
   "song_title": "I walk alone",
   "artist": "Tarja",
-  "interpretation_summary": "The song 'I walk alone' explores themes of solitude, resilience, and the struggle between longing for connection and the acceptance of isolation. The narrator reflects on their emotional journey, conveying a sense of enduring anguish while asserting independence. The imagery of angels, thorns, and storms illustrates the complexity of their feelings, highlighting both pain and strength in walking through life's challenges alone.",
+  "interpretation_summary": "The song \"I walk alone\" conveys a deep sense of isolation and resilience in the face of adversity. The narrator grapples with loss and feels disconnected from others while asserting their independence. Themes of personal struggle, hope, and the bittersweet nature of existence are evident throughout the lyrics, highlighting an inner journey amidst external chaos.",
   "dominant_emotions": [
     "loneliness",
     "resilience",
-    "longing",
-    "defiance"
+    "nostalgia",
+    "defiance",
+    "sadness"
   ],
-  "emotional_arc": "The song begins with an acknowledgment of pain and solitude, progresses through expressions of defiance and reassurance in independence, and ultimately culminates in a profound acceptance of loneliness intertwined with strength.",
-  "narrator_perspective": "The song is narrated from a first-person perspective, allowing a deep, personal insight into the narrator's emotional state and reflections on their circumstances.",
+  "emotional_arc": "The song begins with feelings of isolation and melancholy, as the narrator reflects on past experiences and relationships. As it progresses, there is a shift towards a stronger sense of self, culminating in a defiant acceptance of solitude. The emotional density ebbs and flows between sadness and a resilient determination to move forward, despite the loneliness.",
+  "narrator_perspective": "The perspective of the narrator is introspective and reflective, focusing on personal experiences and emotions. They convey a sense of distance from others, yet reveal a strong personal voice that emphasizes their journey and resolve.",
   "key_evidence_lines": [
     {
       "line_number": 10,
@@ -24,9 +25,13 @@
       "text": "My winter storm holding me awake"
     },
     {
-      "line_number": 22,
-      "text": "It's never gone when I walk alone"
+      "line_number": 23,
+      "text": "Waiting up in heaven"
+    },
+    {
+      "line_number": 25,
+      "text": "Spinning down I felt your every move"
     }
   ],
-  "uncertainty_notes": "The song utilizes metaphors such as 'angels,' 'roses,' and 'winter storm' that may carry varying interpretations, influenced by cultural context. Phrases like 'whisper to my heart' and 'waiting up in heaven' introduce ambiguity, suggesting spiritual elements or deeper emotional connections that might not be literally defined."
+  "uncertainty_notes": "The lyrics employ metaphors and poetic language that may lead to varied interpretations. Phrases like \"winter storm\" can symbolize emotional turmoil, while ambiguous references to 'angels' and 'roses' suggest deeper, possibly personal meanings. Cultural nuances may also alter the reception of themes such as loss and personal independence."
 }
