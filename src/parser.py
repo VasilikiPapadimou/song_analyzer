@@ -1,8 +1,8 @@
-'''
-    This module gets the raw output from LLM and parses it. 
-    After parsing the product is a python dictionary 
-    Syntax Validation : parse_json() checks if the json produced has the correct syntax (brackets/commas)
-'''
+"""
+This module gets the raw output from LLM and parses it.
+After parsing the product is a python dictionary
+Syntax Validation : parse_json() checks if the json produced has the correct syntax (brackets/commas)
+"""
 
 """
 MISSING :
@@ -13,7 +13,7 @@ MISSING :
 import json
 import logging
 from schema import SONG_ANALYSIS_SCHEMA
-from jsonschema import validate,ValidationError
+from jsonschema import validate, ValidationError
 
 logger = logging.getLogger(__name__)
 
@@ -29,21 +29,23 @@ def parse_json(raw: str):
     # ------------------------
     try:
         parsed = json.loads(raw)
-    except json.JSONDecodeError as e:
-        logger.error(f"❌ JSON parsing failed: {e}")
+        logger.info("LLM response parsed successfully.")
+    except json.JSONDecodeError :
+        logger.exception("LLM response was not valid JSON.")
+
         return None
-    
+
     # ------------------------
     # STEP 2 — Schema validation
     # ------------------------
-    try: 
-        validate(instance=parsed,schema=SONG_ANALYSIS_SCHEMA)
-    except ValidationError as e:
-        logger.error(f"❌ Schema validation failed: {e.message}")
+    try:
+        validate(instance=parsed, schema=SONG_ANALYSIS_SCHEMA)
+    except ValidationError:
+        logger.exception("LLM response failed schema validation.")
         return None
 
     # ------------------------
     # SUCCESS
     # ------------------------
-    logger.info("✅ JSON parsed and validated successfully")
+    logger.info("Parsed response passed schema validation.")
     return parsed
