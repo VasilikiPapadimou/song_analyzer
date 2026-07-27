@@ -35,3 +35,37 @@
 2026-07-25 22:56:30,430 | INFO | __main__ | LLM response passed parsing and schema validation.
 2026-07-25 22:56:30,441 | INFO | __main__ | Saved validated analysis to: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W30\i_walk_alone_tarja_2026-07-25\analysis.json
 2026-07-25 22:56:30,442 | INFO | __main__ | Song Analyzer completed successfully for 'I walk alone' by 'Tarja'.
+2026-07-27 19:04:16,035 | INFO | __main__ | Song Analyzer started.
+2026-07-27 19:04:16,043 | INFO | __main__ | Starting processing for input file: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\imports\Warrior-Aurora.txt
+2026-07-27 19:04:16,053 | INFO | file_manager | Successfully read input file: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\imports\Warrior-Aurora.txt
+2026-07-27 19:04:16,053 | INFO | __main__ | Parsed song input: title='Warrior', artist='Aurora'.
+2026-07-27 19:04:16,078 | INFO | __main__ | Created or found song folder: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W31\warrior_aurora_2026-07-27
+2026-07-27 19:04:16,082 | INFO | __main__ | Saved original lyrics to: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W31\warrior_aurora_2026-07-27\original_lyrics.txt
+2026-07-27 19:04:16,085 | INFO | __main__ | Saved cleaned and numbered lyrics to: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W31\warrior_aurora_2026-07-27\cleaned_lyrics.txt
+2026-07-27 19:04:16,086 | INFO | __main__ | Submitting 'Warrior' by 'Aurora' for LLM analysis.
+2026-07-27 19:04:16,086 | INFO | API_LyricsAnalyzer | Submitting song analysis request for 'Warrior' by 'Aurora'
+2026-07-27 19:04:30,685 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/responses "HTTP/1.1 200 OK"
+2026-07-27 19:04:30,858 | INFO | API_LyricsAnalyzer | LLM analysis completed for 'Warrior' by 'Aurora'
+2026-07-27 19:04:30,858 | INFO | __main__ | Received LLM response for 'Warrior' by 'Aurora'.
+2026-07-27 19:04:30,859 | INFO | parser | LLM response parsed successfully.
+2026-07-27 19:04:30,921 | INFO | parser | LLM response passed SONG_ANALYSIS_SCHEMA validation.
+2026-07-27 19:04:30,984 | INFO | parser | Final analysis passed FINAL_ANALYSIS_SCHEMA validation.
+2026-07-27 19:04:30,986 | INFO | __main__ | Saved validated analysis to: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W31\warrior_aurora_2026-07-27\analysis.json
+2026-07-27 19:04:30,986 | INFO | __main__ | Song Analyzer completed successfully for 'Warrior' by 'Aurora'.
+2026-07-27 19:29:00,189 | INFO | __main__ | Song Analyzer started.
+2026-07-27 19:29:00,200 | INFO | __main__ | Starting processing for input file: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\imports\Untie the knot-Kalandra.txt
+2026-07-27 19:29:00,251 | INFO | file_manager | Successfully read input file: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\imports\Untie the knot-Kalandra.txt
+2026-07-27 19:29:00,252 | INFO | __main__ | Parsed song input: title='Untie the knot', artist='Kalandra'.
+2026-07-27 19:29:00,253 | INFO | __main__ | Created or found song folder: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W31\untie_the_knot_kalandra_2026-07-27
+2026-07-27 19:29:00,254 | INFO | __main__ | Saved original lyrics to: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W31\untie_the_knot_kalandra_2026-07-27\original_lyrics.txt
+2026-07-27 19:29:00,256 | INFO | __main__ | Saved cleaned and numbered lyrics to: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W31\untie_the_knot_kalandra_2026-07-27\cleaned_lyrics.txt
+2026-07-27 19:29:00,257 | INFO | __main__ | Submitting 'Untie the knot' by 'Kalandra' for LLM analysis.
+2026-07-27 19:29:00,258 | INFO | API_LyricsAnalyzer | Submitting song analysis request for 'Untie the knot' by 'Kalandra'
+2026-07-27 19:29:11,182 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/responses "HTTP/1.1 200 OK"
+2026-07-27 19:29:11,389 | INFO | API_LyricsAnalyzer | LLM analysis completed for 'Untie the knot' by 'Kalandra'
+2026-07-27 19:29:11,390 | INFO | __main__ | Received LLM response for 'Untie the knot' by 'Kalandra'.
+2026-07-27 19:29:11,390 | INFO | parser | LLM response parsed successfully.
+2026-07-27 19:29:11,435 | INFO | parser | LLM response passed SONG_ANALYSIS_SCHEMA validation.
+2026-07-27 19:29:11,486 | INFO | parser | Final analysis passed FINAL_ANALYSIS_SCHEMA validation.
+2026-07-27 19:29:11,487 | INFO | __main__ | Saved validated analysis to: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W31\untie_the_knot_kalandra_2026-07-27\analysis.json
+2026-07-27 19:29:11,488 | INFO | __main__ | Song Analyzer completed successfully for 'Untie the knot' by 'Kalandra'.

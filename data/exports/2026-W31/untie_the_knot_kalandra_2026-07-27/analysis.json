@@ -1,0 +1,125 @@
+{
+  "metadata": {
+    "schema_version": "2.0",
+    "song_title": "Untie the knot",
+    "artist": "Kalandra",
+    "processed_at": "2026-07-27T19:29:00+03:00",
+    "model": "gpt-4o-mini",
+    "prompt_version": "2.0"
+  },
+  "lyrics_analysis": {
+    "themes": [
+      {
+        "family": "identity_self_discovery",
+        "label": "Struggling with self-acceptance",
+        "role": "primary",
+        "evidence_line_numbers": [
+          1,
+          3,
+          24
+        ]
+      },
+      {
+        "family": "conflict_struggle",
+        "label": "Inner turmoil regarding self-worth",
+        "role": "secondary",
+        "evidence_line_numbers": [
+          4,
+          6,
+          12
+        ]
+      },
+      {
+        "family": "change_transition",
+        "label": "Awakening and transformation",
+        "role": "secondary",
+        "evidence_line_numbers": [
+          5,
+          15
+        ]
+      }
+    ],
+    "emotions": [
+      {
+        "family": "sadness",
+        "label": "Melancholy over self-acceptance",
+        "role": "primary",
+        "intensity": 4,
+        "evidence_line_numbers": [
+          1,
+          4,
+          22
+        ]
+      },
+      {
+        "family": "hope_empowerment",
+        "label": "Emerging sense of change",
+        "role": "secondary",
+        "intensity": 3,
+        "evidence_line_numbers": [
+          5,
+          15,
+          19
+        ]
+      },
+      {
+        "family": "confusion_ambivalence",
+        "label": "Uncertainty about identity",
+        "role": "secondary",
+        "intensity": 3,
+        "evidence_line_numbers": [
+          16
+        ]
+      }
+    ],
+    "emotional_arc": {
+      "starting_state": {
+        "emotion_family": "sadness",
+        "label": "Melancholy over self-acceptance",
+        "evidence_line_numbers": [
+          1,
+          4,
+          22
+        ]
+      },
+      "turning_points": [
+        {
+          "from_family": "sadness",
+          "to_family": "hope_empowerment",
+          "evidence_line_numbers": [
+            5,
+            15
+          ]
+        }
+      ],
+      "ending_state": {
+        "emotion_family": "hope_empowerment",
+        "label": "Emerging sense of change",
+        "evidence_line_numbers": [
+          19
+        ]
+      },
+      "overall_movement": "positive_shift"
+    },
+    "agency_level": {
+      "level": "medium",
+      "evidence_line_numbers": [
+        9,
+        19,
+        24
+      ]
+    },
+    "resolution_state": {
+      "status": "partially_resolved",
+      "evidence_line_numbers": [
+        5,
+        9,
+        24
+      ]
+    }
+  },
+  "uncertainty": {
+    "confidence_level": "high",
+    "flagged_fields": []
+  }
+}

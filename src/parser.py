@@ -1,51 +1,92 @@
 """
-This module gets the raw output from LLM and parses it.
-After parsing the product is a python dictionary
-Syntax Validation : parse_json() checks if the json produced has the correct syntax (brackets/commas)
+Parse and structurally validate Song Analyzer JSON data.
+
+This module performs:
+1. JSON syntax parsing for the first LLM response.
+2. Structural validation of the first LLM response.
+3. Structural validation of the completed analysis.json object.
+
+It does not evaluate the analytical quality or grounding of the output.
 """
 
-"""
-MISSING :
-    Are all required fields present?
-    Are the fields in the right type?
-    Does the JSON structure match your schema contract?
-"""
 import json
 import logging
-from schema import SONG_ANALYSIS_SCHEMA
-from jsonschema import validate, ValidationError
+from typing import Any
+from jsonschema import ValidationError, validate
+from schema import FINAL_ANALYSIS_SCHEMA, SONG_ANALYSIS_SCHEMA
 
 logger = logging.getLogger(__name__)
 
-
-def parse_json(raw: str):
+#Parse and Validate first LLM Respomse : Response without metadata included (SONG_ANALYSIS_SCHEMA)
+def parse_json(raw: str) -> dict[str, Any] | None:
     """
-    Step 1: Parse raw JSON string → Python dict
-    Step 2: Validate dict against schema
-    """
+    Parse and validate the first LLM response.
 
-    # ------------------------
-    # STEP 1 — Syntax parsing
-    # ------------------------
+    Returns:
+        The validated response as a Python dictionary.
+
+        None if the response is not valid JSON or does not follow
+        SONG_ANALYSIS_SCHEMA.
+    """
     try:
         parsed = json.loads(raw)
-        logger.info("LLM response parsed successfully.")
-    except json.JSONDecodeError :
-        logger.exception("LLM response was not valid JSON.")
 
+    except json.JSONDecodeError as exc:
+        logger.error("LLM response was not valid JSON. Line: %s, column: %s, reason: %s", exc.lineno, exc.colno, exc.msg)
         return None
 
-    # ------------------------
-    # STEP 2 — Schema validation
-    # ------------------------
+    except TypeError as exc:
+        logger.error("LLM response could not be parsed because it was not a string: %s", exc)
+        return None
+
+    logger.info("LLM response parsed successfully.")
+
     try:
         validate(instance=parsed, schema=SONG_ANALYSIS_SCHEMA)
-    except ValidationError:
-        logger.exception("LLM response failed schema validation.")
+
+    except ValidationError as exc:
+        validation_path = ".".join(str(path_part) for path_part in exc.absolute_path)
+
+        logger.error(
+            "LLM response failed schema validation. "
+            "Field: %s, reason: %s",
+            validation_path or "<root>",
+            exc.message,
+        )
         return None
 
-    # ------------------------
-    # SUCCESS
-    # ------------------------
-    logger.info("Parsed response passed schema validation.")
+    logger.info("LLM response passed SONG_ANALYSIS_SCHEMA validation.")
+
     return parsed
+
+
+def validate_final_analysis(analysis: dict[str, Any]) -> bool:
+    """
+    Validate the completed analysis.json object.
+
+    The object must contain:
+    - deterministic metadata added by Python
+    - lyrics_analysis returned by the LLM
+    - uncertainty returned by the LLM
+
+    Returns:
+        True when the object follows FINAL_ANALYSIS_SCHEMA.
+        False when validation fails.
+    """
+    try:
+        validate(instance=analysis, schema=FINAL_ANALYSIS_SCHEMA)
+
+    except ValidationError as exc:
+        validation_path = ".".join(str(path_part) for path_part in exc.absolute_path)
+
+        logger.error(
+            "Final analysis failed schema validation. "
+            "Field: %s, reason: %s",
+            validation_path or "<root>",
+            exc.message,
+        )
+        return False
+
+    logger.info("Final analysis passed FINAL_ANALYSIS_SCHEMA validation.")
+
+    return True
