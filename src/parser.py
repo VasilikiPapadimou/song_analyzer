@@ -17,11 +17,10 @@ from schema import FINAL_ANALYSIS_SCHEMA, SONG_ANALYSIS_SCHEMA
 
 logger = logging.getLogger(__name__)
 
-#Parse and Validate first LLM Respomse : Response without metadata included (SONG_ANALYSIS_SCHEMA)
+#Parse and Validate first LLM Response : Response without metadata included (SONG_ANALYSIS_SCHEMA)
 def parse_json(raw: str) -> dict[str, Any] | None:
     """
     Parse and validate the first LLM response.
-
     Returns:
         The validated response as a Python dictionary.
 

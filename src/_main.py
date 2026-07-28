@@ -1,13 +1,7 @@
-"""
-Main orchestration flow for processing one imported song.
-"""
-
 from datetime import datetime
 import json
 import logging
-
 from dotenv import load_dotenv
-
 from API_LyricsAnalyzer import analyze_lyrics
 from config import configure_logging
 from file_manager import (BASE_DIR, create_song_folder, input_read,save_analysis,save_text)
@@ -37,19 +31,14 @@ def main() -> None:
 
     # ------------------ INPUT STAGE ------------------
 
-    imported_file = (BASE_DIR/"data"/"imports"/"Untie the knot-Kalandra.txt" )
+    imported_file = (BASE_DIR/"data"/"imports"/"In the End - Linkin Park.txt" )
 
-    logger.info(
-        "Starting processing for input file: %s",
-        imported_file,
-    )
+    logger.info("Starting processing for input file: %s", imported_file)
 
     original_text = input_read(imported_file)
 
     if not original_text:
-        logger.error(
-            "Processing stopped because the input file could not be read."
-        )
+        logger.error("Processing stopped because the input file could not be read.")
         print("Could not read lyrics file.")
         return
 
@@ -57,30 +46,17 @@ def main() -> None:
         song_input = parse_song_input(original_text)
 
     except ValueError as exc:
-        logger.exception(
-            "The imported file does not follow the expected structure."
-        )
+        logger.exception("The imported file does not follow the expected structure.")
         print(f"Invalid input: {exc}")
         return
 
-    logger.info(
-        "Parsed song input: title='%s', artist='%s'.",
-        song_input.song_title,
-        song_input.artist,
-    )
+    logger.info("Parsed song input: title='%s', artist='%s'.", song_input.song_title, song_input.artist)
 
     # ------------------ SONG FOLDER CREATION ------------------
 
-    song_folder = create_song_folder(
-        artist=song_input.artist,
-        song_title=song_input.song_title,
-        processed_at=processing_time,
-    )
+    song_folder = create_song_folder(artist=song_input.artist, song_title=song_input.song_title, processed_at=processing_time)
 
-    logger.info(
-        "Created or found song folder: %s",
-        song_folder,
-    )
+    logger.info("Created or found song folder: %s", song_folder)
 
     original_path = song_folder / "original_lyrics.txt"
     cleaned_path = song_folder / "cleaned_lyrics.txt"
@@ -88,10 +64,7 @@ def main() -> None:
 
     save_text(original_path, original_text)
 
-    logger.info(
-        "Saved original lyrics to: %s",
-        original_path,
-    )
+    logger.info("Saved original lyrics to: %s", original_path)
 
     # ------------------ INPUT PREPROCESSING ------------------
 
@@ -102,48 +75,27 @@ def main() -> None:
 
     save_text(cleaned_path, numbered_lyrics)
 
-    logger.info(
-        "Saved cleaned and numbered lyrics to: %s",
-        cleaned_path,
-    )
+    logger.info( "Saved cleaned and numbered lyrics to: %s", cleaned_path)
 
     # ------------------ PROCESSING: FIRST LLM CALL ------------------
 
-    logger.info(
-        "Submitting '%s' by '%s' for LLM analysis.",
-        song_input.song_title,
-        song_input.artist,
-    )
+    logger.info("Submitting '%s' by '%s' for LLM analysis.", song_input.song_title, song_input.artist)
 
-    raw_output = analyze_lyrics(
-        artist=song_input.artist,
-        song_title=song_input.song_title,
-        clean_text=numbered_lyrics,
-    )
+    raw_output = analyze_lyrics(artist=song_input.artist, song_title=song_input.song_title, clean_text=numbered_lyrics,)
 
     if not raw_output:
-        logger.error(
-            "The LLM returned no usable response for '%s' by '%s'.",
-            song_input.song_title,
-            song_input.artist,
-        )
+        logger.error( "The LLM returned no usable response for '%s' by '%s'.", song_input.song_title, song_input.artist)
         print("The LLM analysis failed.")
         return
 
-    logger.info(
-        "Received LLM response for '%s' by '%s'.",
-        song_input.song_title,
-        song_input.artist,
-    )
+    logger.info("Received LLM response for '%s' by '%s'.", song_input.song_title, song_input.artist)
 
     # ------------------ LLM OUTPUT PARSING ------------------
 
     llm_analysis = parse_json(raw_output)
 
     if llm_analysis is None:
-        logger.error(
-            "The LLM response failed JSON parsing or schema validation."
-        )
+        logger.error("The LLM response failed JSON parsing or schema validation.")
         print("JSON parsing or schema validation failed.")
         return
 
@@ -169,29 +121,17 @@ def main() -> None:
     }
 
     if not validate_final_analysis(final_analysis):
-        logger.error(
-            "The completed analysis object failed final validation."
-        )
+        logger.error("The completed analysis object failed final validation.")
         print("Final analysis validation failed.")
         return
 
     # ------------------ OUTPUT STAGE ------------------
 
-    save_analysis(
-        analysis_path,
-        final_analysis,
-    )
+    save_analysis(analysis_path, final_analysis)
 
-    logger.info(
-        "Saved validated analysis to: %s",
-        analysis_path,
-    )
+    logger.info("Saved validated analysis to: %s", analysis_path)
 
-    logger.info(
-        "Song Analyzer completed successfully for '%s' by '%s'.",
-        song_input.song_title,
-        song_input.artist,
-    )
+    logger.info("Song Analyzer completed successfully for '%s' by '%s'.", song_input.song_title, song_input.artist)
 
     print("\nAnalysis completed successfully.")
     print(f"Song: {song_input.song_title}")
@@ -199,13 +139,7 @@ def main() -> None:
     print(f"Saved analysis: {analysis_path}")
 
     print("\n=== RESULT ===")
-    print(
-        json.dumps(
-            final_analysis,
-            indent=2,
-            ensure_ascii=False,
-        )
-    )
+    print(json.dumps( final_analysis, indent=2, ensure_ascii=False))
 
 
 if __name__ == "__main__":

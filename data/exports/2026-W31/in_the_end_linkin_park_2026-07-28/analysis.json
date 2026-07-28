@@ -1,0 +1,117 @@
+{
+  "metadata": {
+    "schema_version": "2.0",
+    "song_title": "In the end",
+    "artist": "Linkin Park",
+    "processed_at": "2026-07-28T07:34:58+03:00",
+    "model": "gpt-4o-mini",
+    "prompt_version": "2.0"
+  },
+  "lyrics_analysis": {
+    "themes": [
+      {
+        "family": "loss_grief",
+        "label": "Grief over lost efforts and relationships",
+        "role": "primary",
+        "evidence_line_numbers": [
+          15,
+          22,
+          47,
+          66
+        ]
+      },
+      {
+        "family": "conflict_struggle",
+        "label": "Struggle with personal expectations and external pressures",
+        "role": "secondary",
+        "evidence_line_numbers": [
+          3,
+          17,
+          32,
+          48
+        ]
+      },
+      {
+        "family": "identity_self_discovery",
+        "label": "Search for self amidst loss and conflict",
+        "role": "secondary",
+        "evidence_line_numbers": [
+          38,
+          39,
+          40
+        ]
+      }
+    ],
+    "emotions": [
+      {
+        "family": "sadness",
+        "label": "Grief and resignation",
+        "role": "primary",
+        "intensity": 5,
+        "evidence_line_numbers": [
+          22,
+          47,
+          66
+        ]
+      },
+      {
+        "family": "confusion_ambivalence",
+        "label": "Uncertainty about past relationships",
+        "role": "secondary",
+        "intensity": 3,
+        "evidence_line_numbers": [
+          28,
+          34,
+          40
+        ]
+      }
+    ],
+    "emotional_arc": {
+      "starting_state": {
+        "emotion_family": "sadness",
+        "label": "Grief and regret",
+        "evidence_line_numbers": [
+          15,
+          22
+        ]
+      },
+      "turning_points": [
+        {
+          "from_family": "sadness",
+          "to_family": "confusion_ambivalence",
+          "evidence_line_numbers": [
+            32
+          ]
+        }
+      ],
+      "ending_state": {
+        "emotion_family": "sadness",
+        "label": "Acceptance of loss",
+        "evidence_line_numbers": [
+          66
+        ]
+      },
+      "overall_movement": "negative_shift"
+    },
+    "agency_level": {
+      "level": "low",
+      "evidence_line_numbers": [
+        32,
+        42,
+        52
+      ]
+    },
+    "resolution_state": {
+      "status": "unresolved",
+      "evidence_line_numbers": [
+        22,
+        47,
+        66
+      ]
+    }
+  },
+  "uncertainty": {
+    "confidence_level": "high",
+    "flagged_fields": []
+  }
+}

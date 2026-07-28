@@ -34,8 +34,10 @@ SECTION_LABEL_PATTERN = re.compile(
         repeat
     )
     (?:\s+\d+|\s+[ivxlcdm]+)?
+    \s*:?
     [\]\)\}]?
-    \s*:?\s*$
+    \s*:?\s*
+    $
     """,
     flags=re.IGNORECASE | re.VERBOSE,
 )
@@ -79,10 +81,7 @@ def parse_song_input(text: str) -> SongInput:
     lines = normalized.splitlines()
 
     if len(lines) < 3:
-        raise ValueError(
-            "Input must contain artist on line 1, "
-            "song title on line 2, and lyrics afterward."
-        )
+        raise ValueError("Input must contain artist on line 1, song title on line 2, and lyrics afterward.")
 
     artist = lines[0].strip()
     song_title = lines[1].strip()
