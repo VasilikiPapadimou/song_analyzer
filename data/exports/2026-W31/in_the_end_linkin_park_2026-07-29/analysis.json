@@ -1,0 +1,113 @@
+{
+  "metadata": {
+    "schema_version": "2.0",
+    "song_title": "In the end",
+    "artist": "Linkin Park",
+    "processed_at": "2026-07-29T00:29:17+03:00",
+    "model": "gpt-4o-mini",
+    "prompt_version": "2.0"
+  },
+  "lyrics_analysis": {
+    "themes": [
+      {
+        "family": "loss_grief",
+        "label": "Loss of time and relationships",
+        "role": "primary",
+        "evidence_line_numbers": [
+          15,
+          17,
+          25
+        ]
+      },
+      {
+        "family": "identity_self_discovery",
+        "label": "Struggle with personal identity",
+        "role": "secondary",
+        "evidence_line_numbers": [
+          38,
+          39
+        ]
+      },
+      {
+        "family": "conflict_struggle",
+        "label": "Internal conflict and effort",
+        "role": "secondary",
+        "evidence_line_numbers": [
+          18,
+          32,
+          42
+        ]
+      }
+    ],
+    "emotions": [
+      {
+        "family": "sadness",
+        "label": "Regret",
+        "role": "primary",
+        "intensity": 4,
+        "evidence_line_numbers": [
+          21,
+          46,
+          25
+        ]
+      },
+      {
+        "family": "loneliness_isolation",
+        "label": "Isolation",
+        "role": "secondary",
+        "intensity": 3,
+        "evidence_line_numbers": [
+          38,
+          40
+        ]
+      },
+      {
+        "family": "confusion_ambivalence",
+        "label": "Ambivalence about relationships",
+        "role": "secondary",
+        "intensity": 3,
+        "evidence_line_numbers": [
+          32,
+          34
+        ]
+      }
+    ],
+    "emotional_arc": {
+      "starting_state": {
+        "emotion_family": "sadness",
+        "label": "Regret",
+        "evidence_line_numbers": [
+          21
+        ]
+      },
+      "turning_points": [],
+      "ending_state": {
+        "emotion_family": "sadness",
+        "label": "Resignation",
+        "evidence_line_numbers": [
+          62,
+          67
+        ]
+      },
+      "overall_movement": "stable_negative"
+    },
+    "agency_level": {
+      "level": "low",
+      "evidence_line_numbers": [
+        24,
+        42
+      ]
+    },
+    "resolution_state": {
+      "status": "unresolved",
+      "evidence_line_numbers": [
+        25,
+        51
+      ]
+    }
+  },
+  "uncertainty": {
+    "confidence_level": "high",
+    "flagged_fields": []
+  }
+}
