@@ -1,103 +1,57 @@
-# song_analyzer
+1. Manual input
+   data/imports/<song>.txt
 
-## 🏗️ System Flow
+2. Input reading
+   file_manager.input_read()
 
-[Song Lyrics (.txt)]
-↓
-Loader Module
-↓
-Prompt Construction
-↓
-OpenAI API Call
-↓
-Raw LLM Output
-↓
-Saved to /outputs/raw
-↓
-(Optional parsing/validation)
-↓
-Saved to /outputs/parsed
+3. Metadata extraction
+   line 1 → artist
+   line 2 → song title
+   remaining lines → lyrics
 
-Think of it like a mini ETL pipeline:
+4. Export folder creation
+   data/exports/<ISO week>/<song_artist_date>/
 
-- **Extract** → Load lyrics
-- **Transform** → LLM analysis
-- **Load** → Save structured results
+5. Original input preservation
+   original_lyrics.txt
 
----
+6. Lyrics preprocessing
+   - normalize line endings
+   - trim spaces
+   - remove section labels
+   - remove website metadata
+   - normalize repeated spaces
+   - remove excessive blank lines
 
-## 📁 Project Structure
+7. Evidence numbering
+   [1] lyric line
+   [2] lyric line
+   ...
 
-song-meaning-analyzer/
-│
-├── data/
-│ └── songs/
-│ ├── song1.txt
-│ └── song2.txt
-│
-├── output/
-│ ├── raw/
-│ ├── parsed/
-│ └── evaluation/
-│
-├── src/
-│ ├── main.py --> orchestration only
-│ ├── config.py --> defaults and settings
-│ ├── models.py --> structure of the data /schema
-│ ├── prompts.py --> contains the prompt template
-│ ├── file_manager.py --> files and paths : read lyrics, creates output filename, saves json, finds the last 10 raw files, creates files if they dont exist
-│ ├── analyzer.py --> llm iteration
-│ ├── aggregator.py --> raw jsons as inputs -> statistics/summaries as outputs
-│ ├── evaluator.py --> quality checks of system
-│ └── utils.py --> helpful things that do not go anywhere else
-│
-├── .env
-├── requirements.txt
-└── README.md
+8. Clean input output
+   cleaned_lyrics.txt
 
----
+9. First LLM call
+   prompt + cleaned lyrics + SONG_ANALYSIS_SCHEMA
 
-## ⚙️ Setup
+10. First structural validation
+    parse_json()
 
-### 1. Clone the repository
+11. Python metadata assembly
 
-```bash
-git clone https://github.com/VasilikiPapadimou/song_analyzer.git
-cd song_analyzer
-2. Create virtual environment
-python -m venv .venv
-source .venv/bin/activate      # macOS/Linux
-.venv\Scripts\activate         # Windows
-3. Install dependencies
-pip install -r requirements.txt
-4. Set your API key
+12. Final structural validation
+    validate_final_analysis()
 
-Create a .env file or configure in config.py:
+13. Final Pipeline 1 output
+    analysis.json
 
-OPENAI_API_KEY=your_api_key_here
-▶️ Usage
-Add song lyrics as .txt files inside:
-data/songs/
-Run the application:
-python src/main.py
-Outputs will be generated in:
-outputs/raw/ → raw LLM response
-outputs/parsed/ → structured JSON
-📄 Example Output
-{{
-  "song_title": "Example Song",
-  "artist": "Unknown",
-  "dominant_emotions": ["melancholy","nostalgia"],
-  "emotional_arc": "Starts reflective, builds to emotional intensity, ends in acceptance",
-  "main_themes": ["loss","memory","identity"],
-  "narrator_perspective": "first_person",
-  "key_symbols_or_images": ["rain","empty streets"],
-  "interpretation_summary": "A reflection on past relationships and emotional growth",
-  "evidence_lines": [
-    "I walk alone through the rain",
-    "Echoes of what we became"
-  ],
-  "ambiguities_or_uncertainties": "Unclear if the narrator seeks closure or remains stuck",
-  "confidence_note": "Moderate confidence due to metaphor-heavy lyrics"
-}}
-```
+
+Pipeline 1 implementation       ✅
+        ↓
+Pipeline 1 validation           ← βρισκόμαστε εδώ
+        ↓
+Pipeline 1 evaluation
+        ↓
+Pipeline 1 acceptance criteria
+        ↓
+Pipeline 2 weekly aggregation

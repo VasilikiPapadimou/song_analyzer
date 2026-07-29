@@ -1,6 +1,5 @@
 """
 Parse and structurally validate Song Analyzer JSON data.
-
 This module performs:
 1. JSON syntax parsing for the first LLM response.
 2. Structural validation of the first LLM response.
@@ -17,16 +16,8 @@ from schema import FINAL_ANALYSIS_SCHEMA, SONG_ANALYSIS_SCHEMA
 
 logger = logging.getLogger(__name__)
 
-#Parse and Validate first LLM Response : Response without metadata included (SONG_ANALYSIS_SCHEMA)
+#Parse and Validate LLM Response : Response without metadata included (SONG_ANALYSIS_SCHEMA)
 def parse_json(raw: str) -> dict[str, Any] | None:
-    """
-    Parse and validate the first LLM response.
-    Returns:
-        The validated response as a Python dictionary.
-
-        None if the response is not valid JSON or does not follow
-        SONG_ANALYSIS_SCHEMA.
-    """
     try:
         parsed = json.loads(raw)
 
@@ -46,12 +37,7 @@ def parse_json(raw: str) -> dict[str, Any] | None:
     except ValidationError as exc:
         validation_path = ".".join(str(path_part) for path_part in exc.absolute_path)
 
-        logger.error(
-            "LLM response failed schema validation. "
-            "Field: %s, reason: %s",
-            validation_path or "<root>",
-            exc.message,
-        )
+        logger.error("LLM response failed schema validation. Field: %s, reason: %s", validation_path or "<root>", exc.message)
         return None
 
     logger.info("LLM response passed SONG_ANALYSIS_SCHEMA validation.")
