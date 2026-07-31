@@ -15,10 +15,10 @@ def analyze_lyrics( artist: str, song_title: str, clean_text: str) -> str | None
                 )
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
-        return {
-            "error": "missing_api_key",
-            "details": "OPENAI_API_KEY was not found in environment variables."
-        }
+        logger.error(
+            "OPENAI_API_KEY was not found in the environment variables."
+        )
+        return None
 
     client = OpenAI(api_key=api_key) # API client call
     prompt = build_prompt(artist=artist, song_title=song_title, clean_text=clean_text) # call the prompt from prompts.py
