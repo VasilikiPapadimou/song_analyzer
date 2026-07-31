@@ -30,7 +30,7 @@ class ValidationResult:
         return not self.errors
 
 
-def iter_evidence_fields(value: Any, path: str = "" ) -> Iterator[tuple[str, Any]]:
+def _iter_evidence_fields(value: Any, path: str = "") -> Iterator[tuple[str, Any]]:
     """
     Find every evidence_line_numbers field inside the analysis.json.
     Yields: 
@@ -44,19 +44,13 @@ def iter_evidence_fields(value: Any, path: str = "" ) -> Iterator[tuple[str, Any
             if key == "evidence_line_numbers":
                 yield current_path, nested_value
             else:
-                yield from iter_evidence_fields(
-                    nested_value,
-                    current_path,
-                )
+                yield from _iter_evidence_fields(nested_value, current_path)
 
     elif isinstance(value, list):
         for index, item in enumerate(value):
             current_path = f"{path}[{index}]"
 
-            yield from iter_evidence_fields(
-                item,
-                current_path,
-            )
+            yield from _iter_evidence_fields(item, current_path,)
 
 #--------------------------------ERROR / WARNING Creation-structure--------------------------------
 
@@ -73,7 +67,7 @@ def validate_evidence_references(analysis: dict[str, Any], total_lyric_lines: in
 
     result = ValidationResult()
 
-    for evidence_path, evidence_lines in iter_evidence_fields(analysis):
+    for evidence_path, evidence_lines in _iter_evidence_fields(analysis):
         # The evidence field must contain a JSON array.
         if not isinstance(evidence_lines, list):
             result.errors.append(

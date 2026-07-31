@@ -10,6 +10,7 @@ from parser import parse_json, validate_final_analysis
 from prompts import PROMPT_VERSION
 from schema import SCHEMA_VERSION
 from _utils import LLM_Model
+from analysis_validator import validate_analysis
 
 
 def main() -> None:
@@ -124,6 +125,33 @@ def main() -> None:
         logger.error("The completed analysis object failed final validation.")
         print("Final analysis validation failed.")
         return
+
+    # ------------------ DETERMINISTIC VALIDATION ------------------
+
+    validation_result = validate_analysis(analysis=final_analysis, total_lyric_lines=len(indexed_lines))
+
+    if not validation_result.is_valid:
+        for issue in validation_result.errors:
+            logger.error("Deterministic validation failed | code=%s | field=%s | message=%s",
+                issue.code,
+                issue.field,
+                issue.message,
+            )
+
+        print("The analysis failed deterministic validation and was not saved.")
+        return
+
+    for issue in validation_result.warnings:
+        logger.warning("Deterministic validation warning | code=%s | field=%s | message=%s",
+            issue.code,
+            issue.field,
+            issue.message,
+        )
+    
+    if validation_result.warnings:
+        print(f"Analysis completed with {len(validation_result.warnings)} validation warning(s).")
+    else:
+          logger.info("Analysis passed deterministic validation with no errors or warnings.")
 
     # ------------------ OUTPUT STAGE ------------------
 
