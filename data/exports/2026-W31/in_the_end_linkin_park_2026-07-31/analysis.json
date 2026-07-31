@@ -1,0 +1,92 @@
+{
+  "metadata": {
+    "schema_version": "2.0",
+    "song_title": "In the end",
+    "artist": "Linkin Park",
+    "processed_at": "2026-07-31T22:58:58+03:00",
+    "model": "gpt-4o-mini",
+    "prompt_version": "2.0"
+  },
+  "lyrics_analysis": {
+    "themes": [
+      {
+        "family": "loss_grief",
+        "label": "Grieving lost effort and time",
+        "role": "primary",
+        "evidence_line_numbers": [
+          15,
+          17,
+          18,
+          22,
+          24,
+          46
+        ]
+      }
+    ],
+    "emotions": [
+      {
+        "family": "sadness",
+        "label": "grief",
+        "role": "primary",
+        "intensity": 5,
+        "evidence_line_numbers": [
+          21,
+          46,
+          22,
+          24
+        ]
+      },
+      {
+        "family": "loneliness_isolation",
+        "label": "isolation from others",
+        "role": "secondary",
+        "intensity": 4,
+        "evidence_line_numbers": [
+          32,
+          33,
+          38
+        ]
+      }
+    ],
+    "emotional_arc": {
+      "starting_state": {
+        "emotion_family": "sadness",
+        "label": "grieving lost effort",
+        "evidence_line_numbers": [
+          22,
+          24
+        ]
+      },
+      "turning_points": [],
+      "ending_state": {
+        "emotion_family": "sadness",
+        "label": "accepting loss",
+        "evidence_line_numbers": [
+          47,
+          51
+        ]
+      },
+      "overall_movement": "stable_negative"
+    },
+    "agency_level": {
+      "level": "low",
+      "evidence_line_numbers": [
+        17,
+        22,
+        24,
+        46
+      ]
+    },
+    "resolution_state": {
+      "status": "unresolved",
+      "evidence_line_numbers": [
+        22,
+        51
+      ]
+    }
+  },
+  "uncertainty": {
+    "confidence_level": "high",
+    "flagged_fields": []
+  }
+}

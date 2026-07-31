@@ -189,3 +189,31 @@
 2026-07-31 22:59:06,941 | INFO | parser | Final analysis passed FINAL_ANALYSIS_SCHEMA validation.
 2026-07-31 22:59:06,944 | INFO | __main__ | Saved validated analysis to: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W31\in_the_end_linkin_park_2026-07-31\analysis.json
 2026-07-31 22:59:06,945 | INFO | __main__ | Song Analyzer completed successfully for 'In the end' by 'Linkin Park'.
+2026-08-01 00:10:09,906 | INFO | __main__ | Song Analyzer started.
+2026-08-01 00:10:09,919 | INFO | __main__ | Starting processing for input file: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\imports\In the End - Linkin Park.txt
+2026-08-01 00:10:09,932 | INFO | file_manager | Successfully read input file: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\imports\In the End - Linkin Park.txt
+2026-08-01 00:10:09,933 | INFO | __main__ | Parsed song input: title='In the end', artist='Linkin Park'.
+2026-08-01 00:10:09,935 | INFO | __main__ | Created or found song folder: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W31\in_the_end_linkin_park_2026-08-01
+2026-08-01 00:10:09,938 | INFO | __main__ | Saved original lyrics to: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W31\in_the_end_linkin_park_2026-08-01\original_lyrics.txt
+2026-08-01 00:10:09,942 | INFO | __main__ | Saved cleaned and numbered lyrics to: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W31\in_the_end_linkin_park_2026-08-01\cleaned_lyrics.txt
+2026-08-01 00:10:09,942 | INFO | __main__ | Submitting 'In the end' by 'Linkin Park' for LLM analysis.
+2026-08-01 00:10:09,942 | INFO | API_LyricsAnalyzer | Submitting song analysis request for 'In the end' by 'Linkin Park'
+2026-08-01 00:10:09,943 | ERROR | __main__ | The LLM returned no usable response for 'In the end' by 'Linkin Park'.
+2026-08-01 00:17:21,932 | INFO | __main__ | Song Analyzer started.
+2026-08-01 00:17:21,936 | INFO | __main__ | Starting processing for input file: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\imports\In the End - Linkin Park.txt
+2026-08-01 00:17:21,949 | INFO | file_manager | Successfully read input file: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\imports\In the End - Linkin Park.txt
+2026-08-01 00:17:21,950 | INFO | __main__ | Parsed song input: title='In the end', artist='Linkin Park'.
+2026-08-01 00:17:21,951 | INFO | __main__ | Created or found song folder: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W31\in_the_end_linkin_park_2026-08-01
+2026-08-01 00:17:21,953 | INFO | __main__ | Saved original lyrics to: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W31\in_the_end_linkin_park_2026-08-01\original_lyrics.txt
+2026-08-01 00:17:21,956 | INFO | __main__ | Saved cleaned and numbered lyrics to: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W31\in_the_end_linkin_park_2026-08-01\cleaned_lyrics.txt
+2026-08-01 00:17:21,956 | INFO | __main__ | Submitting 'In the end' by 'Linkin Park' for LLM analysis.
+2026-08-01 00:17:21,957 | INFO | API_LyricsAnalyzer | Submitting song analysis request for 'In the end' by 'Linkin Park'
+2026-08-01 00:17:34,413 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/responses "HTTP/1.1 200 OK"
+2026-08-01 00:17:34,624 | INFO | API_LyricsAnalyzer | LLM analysis completed for 'In the end' by 'Linkin Park'
+2026-08-01 00:17:34,625 | INFO | __main__ | Received LLM response for 'In the end' by 'Linkin Park'.
+2026-08-01 00:17:34,625 | INFO | parser | LLM response parsed successfully.
+2026-08-01 00:17:34,663 | INFO | parser | LLM response passed SONG_ANALYSIS_SCHEMA validation.
+2026-08-01 00:17:34,704 | INFO | parser | Final analysis passed FINAL_ANALYSIS_SCHEMA validation.
+2026-08-01 00:17:34,704 | INFO | __main__ | Analysis passed deterministic validation with no errors or warnings.
+2026-08-01 00:17:34,707 | INFO | __main__ | Saved validated analysis to: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W31\in_the_end_linkin_park_2026-08-01\analysis.json
+2026-08-01 00:17:34,708 | INFO | __main__ | Song Analyzer completed successfully for 'In the end' by 'Linkin Park'.
