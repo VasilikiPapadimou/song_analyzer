@@ -157,17 +157,38 @@ def validate_emotional_arc_positions(analysis: dict[str, Any], total_lyric_lines
 
     result = ValidationResult()
 
-    emotional_arc = analysis["lyrics_analysis"]["emotional_arc"]
+    # Analyses from other schema versions may not contain this structure at all.
+    # That must surface as a validation error, never as a KeyError crash.
+    lyrics_analysis = analysis.get("lyrics_analysis")
+    emotional_arc = (
+        lyrics_analysis.get("emotional_arc")
+        if isinstance(lyrics_analysis, dict)
+        else None
+    )
+
+    if not isinstance(emotional_arc, dict):
+        result.errors.append(
+            ValidationIssue(
+                code="ANALYSIS_STRUCTURE_INVALID",
+                field="lyrics_analysis.emotional_arc",
+                message=("The analysis does not contain a lyrics_analysis.emotional_arc object."),
+            )
+        )
+        return result
+
     first_section_end = max(1,(total_lyric_lines + 2) // 3)
     final_section_start = max(1, (2 * total_lyric_lines) // 3 + 1)
 
+    starting_state = emotional_arc.get("starting_state")
+    ending_state = emotional_arc.get("ending_state")
+
     starting_lines = get_valid_line_numbers(
-        emotional_arc["starting_state"]["evidence_line_numbers"],
+        starting_state.get("evidence_line_numbers") if isinstance(starting_state, dict) else None,
         total_lyric_lines
     )
 
     ending_lines = get_valid_line_numbers(
-        emotional_arc["ending_state"]["evidence_line_numbers"],
+        ending_state.get("evidence_line_numbers") if isinstance(ending_state, dict) else None,
         total_lyric_lines
     )
 
@@ -194,8 +215,13 @@ def validate_emotional_arc_positions(analysis: dict[str, Any], total_lyric_lines
     # Turning Point should be checked in the overall text
     turning_point_positions: list[int] = []
 
-    for turning_point in emotional_arc["turning_points"]:
-        valid_lines = get_valid_line_numbers(turning_point["evidence_line_numbers"],total_lyric_lines)
+    turning_points = emotional_arc.get("turning_points")
+
+    for turning_point in turning_points if isinstance(turning_points, list) else []:
+        if not isinstance(turning_point, dict):
+            continue
+
+        valid_lines = get_valid_line_numbers(turning_point.get("evidence_line_numbers"),total_lyric_lines)
 
         if valid_lines:
             # The first referenced line marks where the transition begins.

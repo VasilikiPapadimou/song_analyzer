@@ -1,6 +1,7 @@
 from datetime import datetime
 import json
 import logging
+import sys
 from dotenv import load_dotenv
 from API_LyricsAnalyzer import analyze_lyrics
 from config import configure_logging
@@ -13,10 +14,13 @@ from _utils import LLM_Model
 from analysis_validator import validate_analysis
 
 
-def main() -> None:
+def main() -> int:
     """
     Process one manually imported song from its original text file
     to a validated analysis.json file.
+
+    Returns 0 when the analysis is saved, 1 when any stage fails,
+    so scripts and CI can tell a failed run from a successful one.
     """
 
     # ------------------ APPLICATION SETUP ------------------
@@ -41,7 +45,7 @@ def main() -> None:
     if not original_text:
         logger.error("Processing stopped because the input file could not be read.")
         print("Could not read lyrics file.")
-        return
+        return 1
 
     try:
         song_input = parse_song_input(original_text)
@@ -49,7 +53,7 @@ def main() -> None:
     except ValueError as exc:
         logger.exception("The imported file does not follow the expected structure.")
         print(f"Invalid input: {exc}")
-        return
+        return 1
 
     logger.info("Parsed song input: title='%s', artist='%s'.", song_input.song_title, song_input.artist)
 
@@ -72,6 +76,12 @@ def main() -> None:
     cleaned_lyrics = preprocess_text(song_input.lyrics)
 
     indexed_lines = create_indexed_lines(cleaned_lyrics)
+
+    if not indexed_lines:
+        logger.error("Preprocessing removed every lyric line for '%s' by '%s'.", song_input.song_title, song_input.artist)
+        print("No lyric lines remained after preprocessing.")
+        return 1
+
     numbered_lyrics = format_indexed_lines(indexed_lines)
 
     save_text(cleaned_path, numbered_lyrics)
@@ -87,7 +97,7 @@ def main() -> None:
     if not raw_output:
         logger.error( "The LLM returned no usable response for '%s' by '%s'.", song_input.song_title, song_input.artist)
         print("The LLM analysis failed.")
-        return
+        return 1
 
     logger.info("Received LLM response for '%s' by '%s'.", song_input.song_title, song_input.artist)
 
@@ -98,7 +108,7 @@ def main() -> None:
     if llm_analysis is None:
         logger.error("The LLM response failed JSON parsing or schema validation.")
         print("JSON parsing or schema validation failed.")
-        return
+        return 1
 
     # ------------------ METADATA ASSEMBLY ------------------
 
@@ -124,7 +134,7 @@ def main() -> None:
     if not validate_final_analysis(final_analysis):
         logger.error("The completed analysis object failed final validation.")
         print("Final analysis validation failed.")
-        return
+        return 1
 
     # ------------------ DETERMINISTIC VALIDATION ------------------
 
@@ -139,7 +149,7 @@ def main() -> None:
             )
 
         print("The analysis failed deterministic validation and was not saved.")
-        return
+        return 1
 
     for issue in validation_result.warnings:
         logger.warning("Deterministic validation warning | code=%s | field=%s | message=%s",
@@ -169,6 +179,8 @@ def main() -> None:
     print("\n=== RESULT ===")
     print(json.dumps( final_analysis, indent=2, ensure_ascii=False))
 
+    return 0
+
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

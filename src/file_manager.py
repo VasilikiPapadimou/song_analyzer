@@ -21,7 +21,9 @@ logger = logging.getLogger(__name__)
 
 def input_read(file_path: Path) -> str:
     try:
-        content = file_path.read_text(encoding="utf-8")
+        # utf-8-sig strips a leading BOM when a file was saved as "UTF-8 with BOM"
+        # (e.g. by Notepad); without this the BOM ends up inside the artist metadata.
+        content = file_path.read_text(encoding="utf-8-sig")
         logger.info("Successfully read input file: %s", file_path)
         return content
         
