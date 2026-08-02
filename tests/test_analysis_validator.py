@@ -184,6 +184,31 @@ def test_ending_state_without_late_evidence_is_a_warning() -> None:
     assert (result.warnings[0].field == ( "lyrics_analysis.emotional_arc.ending_state.evidence_line_numbers"))
 
 
+def test_missing_lyrics_analysis_is_a_structure_error() -> None:
+    """An analysis from another schema version must report an error, not crash."""
+
+    analysis = {"metadata": {"schema_version": "1.0"}}
+
+    result = validate_analysis(analysis=analysis, total_lyric_lines=20)
+
+    assert result.is_valid is False
+    assert len(result.errors) == 1
+    assert result.errors[0].code == "ANALYSIS_STRUCTURE_INVALID"
+    assert result.errors[0].field == "lyrics_analysis.emotional_arc"
+
+
+def test_missing_arc_sections_do_not_crash() -> None:
+    """Partial emotional_arc objects should be tolerated by the positional checks."""
+
+    analysis = make_valid_analysis()
+    del analysis["lyrics_analysis"]["emotional_arc"]["starting_state"]
+    del analysis["lyrics_analysis"]["emotional_arc"]["turning_points"]
+
+    result = validate_analysis(analysis=analysis, total_lyric_lines=20)
+
+    assert result.errors == []
+
+
 def test_turning_points_not_chronological_is_a_warning() -> None:
     """Turning points should follow the order of their evidence lines."""
 
