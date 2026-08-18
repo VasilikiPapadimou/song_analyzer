@@ -11,36 +11,59 @@ class SongInput:
     song_title: str
     lyrics: str
 
+# -------------------------------------------------------------------
+# SECTION LABEL DETECTION
+# -------------------------------------------------------------------
 
-SECTION_LABEL_PATTERN = re.compile(
-    r"""
+SECTION_TYPES = r"""
+    intro |
+    outro |
+    verse |
+    pre[\s-]?chorus |
+    chorus |
+    post[\s-]?chorus |
+    bridge |
+    refrain |
+    hook |
+    interlude |
+    instrumental |
+    breakdown |
+    solo |
+    spoken |
+    repeat
+"""
+
+SECTION_BODY_PATTERN = re.compile(
+    rf"""
     ^\s*
-    [\[\(\{]?
-    (?:
-        intro |
-        outro |
-        verse |
-        pre[\s-]?chorus |
-        chorus |
-        post[\s-]?chorus |
-        bridge |
-        refrain |
-        hook |
-        interlude |
-        instrumental |
-        breakdown |
-        solo |
-        spoken |
-        repeat
-    )
-    (?:\s+\d+|\s+[ivxlcdm]+)?
-    \s*:?
-    [\]\)\}]?
-    \s*:?\s*
-    $
+    (?:{SECTION_TYPES})
+    (?:\s+(?:\d+|[ivxlcdm]+))?
+    (?:\s*:\s*.+)?
+    \s*$
     """,
     flags=re.IGNORECASE | re.VERBOSE,
 )
+
+BRACKET_PAIRS = {
+    "[": "]",
+    "(": ")",
+    "{": "}"
+}
+
+PLAIN_SECTION_PATTERN = re.compile(
+    rf"""
+    ^\s*
+    (?:{SECTION_TYPES})
+    (?:\s+(?:\d+|[ivxlcdm]+))?
+    \s*:?
+    \s*$
+    """,
+    flags=re.IGNORECASE | re.VERBOSE
+)
+
+# -------------------------------------------------------------------
+# WEBSITE METADATA
+# -------------------------------------------------------------------
 
 WEBSITE_METADATA_PATTERNS = [
     re.compile(r"^\s*\d+\s*contributors?\s*$", re.IGNORECASE),
@@ -54,6 +77,8 @@ WEBSITE_METADATA_PATTERNS = [
     re.compile(r"^\s*release date\b.*$", re.IGNORECASE),
 ]
 
+
+'''--------------------------------PART:A -> NORMALIZE & INPUT PARSING ORIGINAL FILE--------------------------------'''
 
 def normalize_line_endings(text: str) -> str:  # converts all line endings to \n
     return text.replace("\r\n", "\n").replace("\r", "\n")
@@ -70,12 +95,12 @@ def remove_extra_empty_lines(text: str) -> str:  # Too many empty lines → max 
 
 def parse_song_input(text: str) -> SongInput:
     """
-    Extract metadata and lyrics from the imported text file.
+        Extract metadata and lyrics from the imported text file.
 
-    Expected input structure:
-    - First line: artist
-    - Second line: song title
-    - Remaining lines: lyrics
+        Expected input structure:
+        - First line: artist
+        - Second line: song title
+        - Remaining lines: lyrics
     """
     normalized = normalize_line_endings(text)
     lines = normalized.splitlines()
@@ -98,13 +123,39 @@ def parse_song_input(text: str) -> SongInput:
     return SongInput(artist=artist, song_title=song_title, lyrics=lyrics)
 
 
-def remove_section_labels(text: str) -> (str):  # this removes the labels that might exist in the file naming the parts of a song
+'''-------------------------------------PART B -> REMOVE METADATA & LABELS -------------------------------------'''
+
+def is_section_label(line: str) -> bool: 
+    '''Determines whether a lyric line represents structural song metadata '''
+    stripped = line.strip()
+    if not stripped:
+        return False
+        
+    if len(stripped) >= 2:
+        opening_bracket = stripped[0]
+        closing_bracket = stripped[-1]
+
+        if (opening_bracket in BRACKET_PAIRS and BRACKET_PAIRS[opening_bracket] == closing_bracket):
+            inner_text = stripped[1:-1].strip()
+
+            return bool(SECTION_BODY_PATTERN.fullmatch(inner_text))
+
+    return bool(PLAIN_SECTION_PATTERN.fullmatch(stripped))
+
+
+def remove_section_labels(text: str) -> (str):  
+    """
+        Remove structural section labels while preserving actual lyric lines.
+    """ 
     remaining_lines = [line
                        for line in text.splitlines()
-                       if not SECTION_LABEL_PATTERN.fullmatch(line)
+                       if not is_section_label(line)
                        ]
     return "\n".join(remaining_lines)
 
+# -------------------------------------------------------------------
+# WEBSITE METADATA REMOVAL
+# -------------------------------------------------------------------
 
 def remove_website_metadata(text: str) -> (str):  # this removes the metadata that might have been copied from the site when the user
     cleaned_lines = []
@@ -119,10 +170,12 @@ def remove_website_metadata(text: str) -> (str):  # this removes the metadata th
     return "\n".join(cleaned_lines)
 
 
-""" -------------------------------- FINAL INPUT RESULT -------------------------------- """
-
+""" --------------------------------PART C -> OUTPUT CLEAN LYRICS-------------------------------- """
 
 def preprocess_text(text: str, lowercase: bool = False) -> str:
+    """
+    Apply all preprocessing steps before lyrics are sent to the LLM.
+    """
     text = normalize_line_endings(text)
     text = strip_lines(text)
     text = remove_section_labels(text)
@@ -136,8 +189,14 @@ def preprocess_text(text: str, lowercase: bool = False) -> str:
     return text.strip()
 
 
-# Numbering of lines in lyrics
+''' --------------------------------PART D -> NUMBERED LYRICS CONTENT--------------------------------'''
+
 def create_indexed_lines(text: str) -> List[Tuple[int, str]]:
+    """
+        Assign sequential numbers to non-empty lyric lines.
+
+        Empty lines are ignored.
+    """
     lines = text.split("\n")
     indexed = []
     line_number = 1
@@ -150,6 +209,10 @@ def create_indexed_lines(text: str) -> List[Tuple[int, str]]:
     return indexed
 
 def format_indexed_lines(indexed_lines: List[Tuple[int, str]]) -> str:
+    """
+        Convert indexed lyric lines into the format expected by the LLM.
+    """
+
     return "\n".join(
         f"[{line_number}] {line}"
         for line_number, line in indexed_lines

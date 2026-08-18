@@ -14,10 +14,6 @@ from analysis_validator import validate_analysis
 
 
 def main() -> None:
-    """
-    Process one manually imported song from its original text file
-    to a validated analysis.json file.
-    """
 
     # ------------------ APPLICATION SETUP ------------------
 

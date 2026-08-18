@@ -1,0 +1,129 @@
+{
+  "metadata": {
+    "schema_version": "2.0",
+    "song_title": "In the end",
+    "artist": "Linkin Park",
+    "processed_at": "2026-08-18T20:03:20+03:00",
+    "model": "gpt-4o-mini",
+    "prompt_version": "2.0"
+  },
+  "lyrics_analysis": {
+    "themes": [
+      {
+        "family": "loss_grief",
+        "label": "grieving loss of effort and relationships",
+        "role": "primary",
+        "evidence_line_numbers": [
+          13,
+          15,
+          18,
+          20,
+          45
+        ]
+      },
+      {
+        "family": "identity_self_discovery",
+        "label": "struggling with personal identity",
+        "role": "secondary",
+        "evidence_line_numbers": [
+          32,
+          33,
+          36,
+          38
+        ]
+      },
+      {
+        "family": "conflict_struggle",
+        "label": "internal and external struggles",
+        "role": "secondary",
+        "evidence_line_numbers": [
+          12,
+          14,
+          41
+        ]
+      }
+    ],
+    "emotions": [
+      {
+        "family": "sadness",
+        "label": "overwhelming grief",
+        "role": "primary",
+        "intensity": 5,
+        "evidence_line_numbers": [
+          18,
+          20,
+          45,
+          57
+        ]
+      },
+      {
+        "family": "fear_anxiety",
+        "label": "fear of wasted time",
+        "role": "secondary",
+        "intensity": 4,
+        "evidence_line_numbers": [
+          3,
+          9,
+          12
+        ]
+      },
+      {
+        "family": "loneliness_isolation",
+        "label": "feelings of isolation",
+        "role": "secondary",
+        "intensity": 3,
+        "evidence_line_numbers": [
+          14,
+          41
+        ]
+      }
+    ],
+    "emotional_arc": {
+      "starting_state": {
+        "emotion_family": "fear_anxiety",
+        "label": "fear of wasted time",
+        "evidence_line_numbers": [
+          3,
+          9
+        ]
+      },
+      "turning_points": [
+        {
+          "from_family": "fear_anxiety",
+          "to_family": "sadness",
+          "evidence_line_numbers": [
+            18,
+            20
+          ]
+        }
+      ],
+      "ending_state": {
+        "emotion_family": "sadness",
+        "label": "overwhelming grief",
+        "evidence_line_numbers": [
+          18,
+          20,
+          57
+        ]
+      },
+      "overall_movement": "negative_shift"
+    },
+    "agency_level": {
+      "level": "low",
+      "evidence_line_numbers": [
+        20,
+        57
+      ]
+    },
+    "resolution_state": {
+      "status": "unresolved",
+      "evidence_line_numbers": [
+        57
+      ]
+    }
+  },
+  "uncertainty": {
+    "confidence_level": "high",
+    "flagged_fields": []
+  }
+}
