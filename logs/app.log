@@ -265,3 +265,39 @@
 2026-08-18 20:03:31,007 | INFO | __main__ | Analysis passed deterministic validation with no errors or warnings.
 2026-08-18 20:03:31,010 | INFO | __main__ | Saved validated analysis to: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W34\in_the_end_linkin_park_2026-08-18\analysis.json
 2026-08-18 20:03:31,010 | INFO | __main__ | Song Analyzer completed successfully for 'In the end' by 'Linkin Park'.
+2026-08-18 20:15:18,877 | INFO | __main__ | Song Analyzer started.
+2026-08-18 20:15:18,895 | INFO | __main__ | Starting processing for input file: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\imports\In the End - Linkin Park.txt
+2026-08-18 20:15:18,896 | INFO | file_manager | Successfully read input file: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\imports\In the End - Linkin Park.txt
+2026-08-18 20:15:18,897 | INFO | __main__ | Parsed song input: title='It starts with one', artist='[Intro: Chester Bennington]'.
+2026-08-18 20:15:18,899 | INFO | __main__ | Created or found song folder: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W34\it_starts_with_one_intro_chester_bennington_2026-08-18
+2026-08-18 20:15:18,913 | INFO | __main__ | Saved original lyrics to: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W34\it_starts_with_one_intro_chester_bennington_2026-08-18\original_lyrics.txt
+2026-08-18 20:15:18,920 | INFO | __main__ | Saved cleaned and numbered lyrics to: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W34\it_starts_with_one_intro_chester_bennington_2026-08-18\cleaned_lyrics.txt
+2026-08-18 20:15:18,933 | INFO | __main__ | Submitting 'It starts with one' by '[Intro: Chester Bennington]' for LLM analysis.
+2026-08-18 20:15:18,934 | INFO | API_LyricsAnalyzer | Submitting song analysis request for 'It starts with one' by '[Intro: Chester Bennington]'
+2026-08-18 20:15:31,802 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/responses "HTTP/1.1 200 OK"
+2026-08-18 20:15:32,230 | INFO | API_LyricsAnalyzer | LLM analysis completed for 'It starts with one' by '[Intro: Chester Bennington]'
+2026-08-18 20:15:32,230 | INFO | __main__ | Received LLM response for 'It starts with one' by '[Intro: Chester Bennington]'.
+2026-08-18 20:15:32,231 | INFO | parser | LLM response parsed successfully.
+2026-08-18 20:15:32,285 | INFO | parser | LLM response passed SONG_ANALYSIS_SCHEMA validation.
+2026-08-18 20:15:32,338 | INFO | parser | Final analysis passed FINAL_ANALYSIS_SCHEMA validation.
+2026-08-18 20:15:32,339 | WARNING | __main__ | Deterministic validation warning | code=TURNING_POINTS_NOT_CHRONOLOGICAL | field=lyrics_analysis.emotional_arc.turning_points | message=Turning points are not ordered chronologically by their evidence lines.
+2026-08-18 20:15:32,341 | INFO | __main__ | Saved validated analysis to: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W34\it_starts_with_one_intro_chester_bennington_2026-08-18\analysis.json
+2026-08-18 20:15:32,341 | INFO | __main__ | Song Analyzer completed successfully for 'It starts with one' by '[Intro: Chester Bennington]'.
+2026-08-18 20:16:41,216 | INFO | __main__ | Song Analyzer started.
+2026-08-18 20:16:41,217 | INFO | __main__ | Starting processing for input file: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\imports\In the End - Linkin Park.txt
+2026-08-18 20:16:41,217 | INFO | file_manager | Successfully read input file: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\imports\In the End - Linkin Park.txt
+2026-08-18 20:16:41,218 | INFO | __main__ | Parsed song input: title='It starts with one', artist='[Intro: Chester Bennington]'.
+2026-08-18 20:16:41,276 | INFO | __main__ | Created or found song folder: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W34\it_starts_with_one_intro_chester_bennington_2026-08-18
+2026-08-18 20:16:41,282 | INFO | __main__ | Saved original lyrics to: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W34\it_starts_with_one_intro_chester_bennington_2026-08-18\original_lyrics.txt
+2026-08-18 20:16:41,287 | INFO | __main__ | Saved cleaned and numbered lyrics to: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W34\it_starts_with_one_intro_chester_bennington_2026-08-18\cleaned_lyrics.txt
+2026-08-18 20:16:41,288 | INFO | __main__ | Submitting 'It starts with one' by '[Intro: Chester Bennington]' for LLM analysis.
+2026-08-18 20:16:41,289 | INFO | API_LyricsAnalyzer | Submitting song analysis request for 'It starts with one' by '[Intro: Chester Bennington]'
+2026-08-18 20:16:50,648 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/responses "HTTP/1.1 200 OK"
+2026-08-18 20:16:50,962 | INFO | API_LyricsAnalyzer | LLM analysis completed for 'It starts with one' by '[Intro: Chester Bennington]'
+2026-08-18 20:16:50,962 | INFO | __main__ | Received LLM response for 'It starts with one' by '[Intro: Chester Bennington]'.
+2026-08-18 20:16:50,963 | INFO | parser | LLM response parsed successfully.
+2026-08-18 20:16:50,998 | INFO | parser | LLM response passed SONG_ANALYSIS_SCHEMA validation.
+2026-08-18 20:16:51,041 | INFO | parser | Final analysis passed FINAL_ANALYSIS_SCHEMA validation.
+2026-08-18 20:16:51,042 | INFO | __main__ | Analysis passed deterministic validation with no errors or warnings.
+2026-08-18 20:16:51,098 | INFO | __main__ | Saved validated analysis to: D:\Viky_Workspace\Personal_Projects\song_analyzer\data\exports\2026-W34\it_starts_with_one_intro_chester_bennington_2026-08-18\analysis.json
+2026-08-18 20:16:51,099 | INFO | __main__ | Song Analyzer completed successfully for 'It starts with one' by '[Intro: Chester Bennington]'.

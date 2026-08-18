@@ -1,9 +1,9 @@
 {
   "metadata": {
     "schema_version": "2.0",
-    "song_title": "In the end",
-    "artist": "Linkin Park",
-    "processed_at": "2026-08-18T20:03:20+03:00",
+    "song_title": "It starts with one",
+    "artist": "[Intro: Chester Bennington]",
+    "processed_at": "2026-08-18T20:16:41+03:00",
     "model": "gpt-4o-mini",
     "prompt_version": "2.0"
   },
@@ -11,60 +11,45 @@
     "themes": [
       {
         "family": "loss_grief",
-        "label": "grieving loss of effort and relationships",
+        "label": "grief over lost relationships",
         "role": "primary",
         "evidence_line_numbers": [
-          13,
-          15,
-          18,
-          20,
-          45
+          12,
+          38,
+          39,
+          48
         ]
       },
       {
         "family": "identity_self_discovery",
-        "label": "struggling with personal identity",
+        "label": "struggle with self-identity",
         "role": "secondary",
         "evidence_line_numbers": [
-          32,
-          33,
-          36,
-          38
+          30,
+          31
         ]
       },
       {
         "family": "conflict_struggle",
-        "label": "internal and external struggles",
+        "label": "internal conflict and struggle",
         "role": "secondary",
         "evidence_line_numbers": [
-          12,
           14,
-          41
+          26,
+          27
         ]
       }
     ],
     "emotions": [
       {
         "family": "sadness",
-        "label": "overwhelming grief",
+        "label": "melancholy over loss",
         "role": "primary",
-        "intensity": 5,
-        "evidence_line_numbers": [
-          18,
-          20,
-          45,
-          57
-        ]
-      },
-      {
-        "family": "fear_anxiety",
-        "label": "fear of wasted time",
-        "role": "secondary",
         "intensity": 4,
         "evidence_line_numbers": [
-          3,
-          9,
-          12
+          12,
+          14,
+          38
         ]
       },
       {
@@ -73,52 +58,63 @@
         "role": "secondary",
         "intensity": 3,
         "evidence_line_numbers": [
-          14,
-          41
+          30,
+          34
+        ]
+      },
+      {
+        "family": "confusion_ambivalence",
+        "label": "confusion about relationships",
+        "role": "secondary",
+        "intensity": 3,
+        "evidence_line_numbers": [
+          1,
+          22
         ]
       }
     ],
     "emotional_arc": {
       "starting_state": {
-        "emotion_family": "fear_anxiety",
-        "label": "fear of wasted time",
+        "emotion_family": "confusion_ambivalence",
+        "label": "confused about the situation",
         "evidence_line_numbers": [
-          3,
-          9
+          1,
+          22
         ]
       },
       "turning_points": [
         {
-          "from_family": "fear_anxiety",
+          "from_family": "confusion_ambivalence",
           "to_family": "sadness",
           "evidence_line_numbers": [
-            18,
-            20
+            14,
+            38
           ]
         }
       ],
       "ending_state": {
         "emotion_family": "sadness",
-        "label": "overwhelming grief",
+        "label": "resigned sadness",
         "evidence_line_numbers": [
-          18,
-          20,
-          57
+          48
         ]
       },
       "overall_movement": "negative_shift"
     },
     "agency_level": {
-      "level": "low",
+      "level": "medium",
       "evidence_line_numbers": [
-        20,
-        57
+        41,
+        42,
+        44,
+        45
       ]
     },
     "resolution_state": {
       "status": "unresolved",
       "evidence_line_numbers": [
-        57
+        48,
+        50
       ]
     }
   },
