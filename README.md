@@ -159,8 +159,7 @@ Key design decisions include:
                   analysis.json
 ```
 
-*A visual workflow diagram will be added in a future update.*
-
+A visual version of the pipeline architecture is available in `docs/media/`.
 ---
 # Installation
 
@@ -196,11 +195,19 @@ uv run python -m song_analyzer
 
 Each input file follows this structure:
 
-```text
 - Line 1: artist
 - Line 2: song title
 - Line 3 onward: lyrics
-```
+
+Example:
+
+```text
+Example Artist
+Turning Point
+I walked beneath the quiet sky
+Carrying questions through the night
+The morning opened up ahead
+And I chose a different road
 
 ---
 

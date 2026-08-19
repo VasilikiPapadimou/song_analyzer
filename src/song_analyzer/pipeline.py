@@ -1,8 +1,9 @@
 from datetime import datetime
 import json
 import logging
+from pathlib import Path
 
-from song_analyzer.config import BASE_DIR, LLM_MODEL
+from song_analyzer.config import LLM_MODEL
 from song_analyzer.file_handling import (
     create_song_folder,
     input_read,
@@ -24,7 +25,7 @@ from song_analyzer.validation.structural import (
     validate_final_analysis,
 )
 
-def run_pipeline() -> None:
+def run_pipeline(input_path: Path) -> None:
 
     # ------------------ APPLICATION SETUP ------------------
 
@@ -36,11 +37,10 @@ def run_pipeline() -> None:
 
     # ------------------ INPUT STAGE ------------------
 
-    imported_file = (BASE_DIR/"data"/"imports"/"example_song.txt" )
 
-    logger.info("Starting processing for input file: %s", imported_file)
+    logger.info("Starting processing for input file: %s", input_path)
 
-    original_text = input_read(imported_file)
+    original_text = input_read(input_path)
 
     if not original_text:
         logger.error("Processing stopped because the input file could not be read.")
