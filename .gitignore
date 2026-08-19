@@ -1,4 +1,26 @@
+# Environment
 .env
+.venv/
 venv/
+
+# Python cache
 __pycache__/
-outputs/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Runtime logs
+logs/*.log
+
+# Generated Song Analyzer outputs
+data/exports/*
+!data/exports/.gitkeep
+
+# Local song inputs
+data/imports/*.txt
+!data/imports/example_song.txt

@@ -1,4 +1,4 @@
-""" ------------------ Deterministic validation for structured song analyses. ------------------
+""" ------------------ Deterministic validation for structured song analyses response. ------------------
 This module checks facts that Python can verify without interpreting the meaning of the lyrics.
 """
 from collections.abc import Iterator

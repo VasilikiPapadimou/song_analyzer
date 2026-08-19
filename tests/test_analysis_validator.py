@@ -1,6 +1,6 @@
 """Tests for deterministic song-analysis validation."""
 
-from src.analysis_validator import validate_analysis
+from song_analyzer.validation.deterministic import validate_analysis
 import pytest
 
 def make_valid_analysis() -> dict:

@@ -2,10 +2,9 @@ import os
 import logging
 from openai import OpenAI
 
-from prompts import build_prompt
-from schema import SONG_ANALYSIS_SCHEMA
-from _utils import LLM_Model
-
+from song_analyzer.llm.prompts import build_prompt
+from song_analyzer.schemas.analysis import SONG_ANALYSIS_SCHEMA
+from song_analyzer.config import LLM_MODEL
 logger = logging.getLogger(__name__)
 
 
@@ -25,7 +24,7 @@ def analyze_lyrics( artist: str, song_title: str, clean_text: str) -> str | None
 
     try:
         response = client.responses.create(
-            model= LLM_Model,
+            model= LLM_MODEL,
             input=prompt,
             text={
                 "format": {

@@ -2,9 +2,10 @@ import logging
 from pathlib import Path
 
 
-# Project root: song_analyzer/
-BASE_DIR = Path(__file__).resolve().parent.parent
+LLM_MODEL = "gpt-4o-mini"
 
+# Project root: song_analyzer/
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # Persistent application logs are stored here.
 LOG_DIR = BASE_DIR / "logs"
 LOG_FILE = LOG_DIR / "app.log"
