@@ -56,27 +56,36 @@ The result is an end-to-end AI pipeline that emphasizes reliability, reproducibi
 
 ## Current Features
 
-- ✅ Manual song import
-- ✅ Input validation
-- ✅ Lyrics preprocessing
-- ✅ Prompt Engineering
+- ✅ Manual song import with defined input structure
+- ✅ Input parsing and validation
+- ✅ Lyrics preprocessing and metadata removal
+- ✅ Sequential lyric-line numbering for evidence grounding
+- ✅ Versioned prompt construction
 - ✅ OpenAI API integration
-- ✅ Structured JSON responses
-- ✅ JSON Schema validation
-- ✅ Metadata generation
-- ✅ Automatic output folder creation
-- ✅ Logging
-- ✅ Reproducible project structure
+- ✅ Strict structured JSON output
+- ✅ JSON Schema validation for LLM responses
+- ✅ Deterministic metadata generation
+- ✅ Final `analysis.json` schema validation
+- ✅ Deterministic evidence validation
+- ✅ Emotional-arc positional validation and warnings
+- ✅ Automatic ISO-week output folder creation
+- ✅ Persistent application logging
+- ✅ Unit tests for preprocessing and deterministic validation
+- ✅ Package-based modular architecture
 
 ## Planned Features
 
-- ⏳ AI output quality evaluation
-- ⏳ Weekly summary generation
+- ⏳ Retry and failure-handling policy
+- ⏳ Failed LLM response preservation
+- ⏳ Token usage and API cost tracking
 - ⏳ Duplicate song detection
-- ⏳ Token usage tracking
+- ⏳ Semantic analysis-quality evaluation
+- ⏳ Human-reviewed evaluation dataset
+- ⏳ Quality metrics and acceptance criteria
+- ⏳ Weekly aggregation of accepted song analyses
+- ⏳ Automated Markdown and PDF reports
 - ⏳ Multi-model comparison
-- ⏳ Agentic workflow
-- ⏳ Automated reporting
+- ⏳ Agentic workflow extensions
 
 ---
 # System Design Decisions
@@ -117,31 +126,37 @@ Key design decisions include:
                └────────┬────────┘
                         │
                         ▼
-               Input Validation
+                  Input Parsing
                         │
                         ▼
               Lyrics Preprocessing
                         │
                         ▼
-              Prompt Construction
+                 Line Numbering
                         │
                         ▼
-                 OpenAI API
+                Prompt Construction
                         │
                         ▼
-                JSON Parsing
+                   OpenAI API
                         │
                         ▼
-             JSON Schema Validation
+                   JSON Parsing
                         │
                         ▼
-            Metadata Construction
+           SONG_ANALYSIS_SCHEMA Validation
                         │
                         ▼
-             Final JSON Validation
+                Metadata Construction
                         │
                         ▼
-                 analysis.json
+          FINAL_ANALYSIS_SCHEMA Validation
+                        │
+                        ▼
+              Deterministic Validation
+                        │
+                        ▼
+                  analysis.json
 ```
 
 *A visual workflow diagram will be added in a future update.*
@@ -172,7 +187,7 @@ OPENAI_API_KEY=your_api_key_here
 Run the application:
 
 ```bash
-uv run python src/_main.py
+uv run python -m song_analyzer
 ```
 
 ---
@@ -182,11 +197,9 @@ uv run python src/_main.py
 Each input file follows this structure:
 
 ```text
-Artist Name
-
-Song Title
-
-Lyrics...
+- Line 1: artist
+- Line 2: song title
+- Line 3 onward: lyrics
 ```
 
 ---
@@ -232,19 +245,30 @@ LLM Response
 JSON Parsing
       │
       ▼
-Schema Validation
+Structural Validation
+SONG_ANALYSIS_SCHEMA
       │
       ▼
 Metadata Assembly
       │
       ▼
-Final Schema Validation
+Structural Validation
+FINAL_ANALYSIS_SCHEMA
       │
       ▼
-analysis.json
+Deterministic Validation
+      │
+      ├── Evidence line validity
+      ├── Empty evidence checks
+      ├── Duplicate evidence warnings
+      ├── Starting/ending position warnings
+      └── Turning-point chronology
+      │
+      ▼
+Accepted analysis.json
 ```
 
-This design separates deterministic software logic from probabilistic AI reasoning.
+Structural validation verifies that the LLM output follows the expected JSON contract. Deterministic validation then checks facts that Python can verify directly, such as evidence-line validity and positional consistency. Semantic quality evaluation is planned as a separate later stage.
 
 ---
 
@@ -305,34 +329,69 @@ song_analyzer/
 ├── logs/
 │
 ├── src/
-│   ├── API_LyricsAnalyzer.py
-│   ├── config.py
-│   ├── file_manager.py
-│   ├── input_preprocess.py
-│   ├── parser.py
-│   ├── prompts.py
-│   ├── schema.py
-│   └── _main.py
+│   └── song_analyzer/
+│       ├── __init__.py
+│       ├── __main__.py
+│       ├── config.py
+│       ├── file_handling.py
+│       ├── input_preprocess.py
+│       ├── pipeline.py
+│       │
+│       ├── llm/
+│       │   ├── __init__.py
+│       │   ├── client.py
+│       │   └── prompts.py
+│       │
+│       ├── schemas/
+│       │   ├── __init__.py
+│       │   ├── analysis.py
+│       │   └── taxonomies.py
+│       │
+│       └── validation/
+│           ├── __init__.py
+│           ├── deterministic.py
+│           └── structural.py
 │
 ├── tests/
+│   ├── test_analysis_validator.py
+│   └── test_input_preprocess.py
 │
 ├── pyproject.toml
 ├── uv.lock
 ├── README.md
-└── .env.example
+└── .gitignore
 ```
 
 ---
 # Roadmap
 
-- [ ] LLM evaluation pipeline
-- [ ] Weekly psychological summaries
-- [ ] Prompt version comparison
-- [ ] Multi-model benchmarking
-- [ ] Token usage reporting
-- [ ] Agentic workflow
-- [ ] Automated Markdown reports
+### Reliability Layer
+
+- [ ] Retry and failure-handling architecture
+- [ ] Preserve failed LLM attempts for inspection
+- [ ] Token usage and cost tracking
+- [ ] Duplicate song detection
+
+### Evaluation Layer
+
+- [ ] Semantic analysis evaluator
+- [ ] Human-reviewed evaluation dataset
+- [ ] Evidence-grounding metrics
+- [ ] Theme and emotion agreement metrics
+- [ ] Emotional-arc, agency, and resolution evaluation
+- [ ] Analysis acceptance criteria
+
+### Weekly Analysis
+
+- [ ] Aggregate accepted analyses by ISO week
+- [ ] Generate weekly Markdown report
+- [ ] Generate PDF report
 - [ ] Dashboard for historical analyses
+
+### Future Extensions
+
+- [ ] Multi-model comparison
+- [ ] Agentic workflow
 
 ---
 

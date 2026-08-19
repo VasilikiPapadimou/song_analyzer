@@ -1,5 +1,5 @@
 """
-Parse and structurally validate Song Analyzer JSON data.
+Parse and structurally validate the LLM response.
 This module performs:
 1. JSON syntax parsing for the first LLM response.
 2. Structural validation of the first LLM response.
@@ -12,7 +12,7 @@ import json
 import logging
 from typing import Any
 from jsonschema import ValidationError, validate
-from schema import FINAL_ANALYSIS_SCHEMA, SONG_ANALYSIS_SCHEMA
+from song_analyzer.schemas.analysis import FINAL_ANALYSIS_SCHEMA, SONG_ANALYSIS_SCHEMA
 
 logger = logging.getLogger(__name__)
 

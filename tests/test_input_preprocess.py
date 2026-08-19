@@ -2,7 +2,7 @@
 
 import pytest
 
-from src.input_preprocess import (
+from song_analyzer.input_preprocess import (
     add_line_numbers,
     create_indexed_lines,
     format_indexed_lines,
@@ -12,7 +12,7 @@ from src.input_preprocess import (
     preprocess_text,
     remove_section_labels,
     remove_website_metadata,
-)
+ )
 
 
 # ------------------ PART A: INPUT PARSING ------------------

@@ -3,6 +3,7 @@ from pathlib import Path
 import json
 import logging
 import re
+from song_analyzer.config import BASE_DIR
 
 """ 
     This is where we will have everything related to:
@@ -13,7 +14,6 @@ import re
 
 """
 # points to "/song_analyzer/data" (project root)
-BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"/ "exports"
 
 logger = logging.getLogger(__name__)

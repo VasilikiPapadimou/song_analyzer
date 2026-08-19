@@ -1,24 +1,32 @@
 from datetime import datetime
 import json
 import logging
-from dotenv import load_dotenv
-from API_LyricsAnalyzer import analyze_lyrics
-from config import configure_logging
-from file_manager import (BASE_DIR, create_song_folder, input_read,save_analysis,save_text)
-from input_preprocess import (create_indexed_lines, format_indexed_lines, parse_song_input, preprocess_text)
-from parser import parse_json, validate_final_analysis
-from prompts import PROMPT_VERSION
-from schema import SCHEMA_VERSION
-from _utils import LLM_Model
-from analysis_validator import validate_analysis
 
+from song_analyzer.config import BASE_DIR, LLM_MODEL
+from song_analyzer.file_handling import (
+    create_song_folder,
+    input_read,
+    save_analysis,
+    save_text,
+)
+from song_analyzer.input_preprocess import (
+    create_indexed_lines,
+    format_indexed_lines,
+    parse_song_input,
+    preprocess_text,
+)
+from song_analyzer.llm.client import analyze_lyrics
+from song_analyzer.llm.prompts import PROMPT_VERSION
+from song_analyzer.schemas.analysis import SCHEMA_VERSION
+from song_analyzer.validation.deterministic import validate_analysis
+from song_analyzer.validation.structural import (
+    parse_json,
+    validate_final_analysis,
+)
 
-def main() -> None:
+def run_pipeline() -> None:
 
     # ------------------ APPLICATION SETUP ------------------
-
-    configure_logging()
-    load_dotenv()
 
     logger = logging.getLogger(__name__)
     logger.info("Song Analyzer started.")
@@ -28,7 +36,7 @@ def main() -> None:
 
     # ------------------ INPUT STAGE ------------------
 
-    imported_file = (BASE_DIR/"data"/"imports"/"In the End - Linkin Park.txt" )
+    imported_file = (BASE_DIR/"data"/"imports"/"example_song.txt" )
 
     logger.info("Starting processing for input file: %s", imported_file)
 
@@ -105,7 +113,7 @@ def main() -> None:
         "processed_at": processing_time.isoformat(
             timespec="seconds"
         ),
-        "model": LLM_Model,
+        "model": LLM_MODEL,
         "prompt_version": PROMPT_VERSION,
     }
 
@@ -164,7 +172,3 @@ def main() -> None:
 
     print("\n=== RESULT ===")
     print(json.dumps( final_analysis, indent=2, ensure_ascii=False))
-
-
-if __name__ == "__main__":
-    main()
