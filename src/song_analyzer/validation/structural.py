@@ -16,7 +16,7 @@ from song_analyzer.schemas.analysis import FINAL_ANALYSIS_SCHEMA, SONG_ANALYSIS_
 
 logger = logging.getLogger(__name__)
 
-#Parse and Validate LLM Response : Response without metadata included (SONG_ANALYSIS_SCHEMA)
+#Parse and Validate LLM Response: Response without metadata included (SONG_ANALYSIS_SCHEMA)
 def parse_json(raw: str) -> dict[str, Any] | None:
     try:
         parsed = json.loads(raw)
@@ -47,16 +47,16 @@ def parse_json(raw: str) -> dict[str, Any] | None:
 
 def validate_final_analysis(analysis: dict[str, Any]) -> bool:
     """
-    Validate the completed analysis.json object.
+        Validate the completed analysis.json object.
 
-    The object must contain:
-    - deterministic metadata added by Python
-    - lyrics_analysis returned by the LLM
-    - uncertainty returned by the LLM
+        The object must contain:
+        - deterministic metadata added by Python
+        - lyrics_analysis returned by the LLM
+        - uncertainty returned by the LLM
 
-    Returns:
-        True when the object follows FINAL_ANALYSIS_SCHEMA.
-        False when validation fails.
+        Returns:
+            True when the object follows FINAL_ANALYSIS_SCHEMA.
+            False when validation fails.
     """
     try:
         validate(instance=analysis, schema=FINAL_ANALYSIS_SCHEMA)

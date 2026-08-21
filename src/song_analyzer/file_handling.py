@@ -6,14 +6,13 @@ import re
 from song_analyzer.config import BASE_DIR
 
 """ 
-    This is where we will have everything related to:
-        - path creation, 
-        - input text file creation/open/save
-        - output text file creation and 
-        - parsed json file in dict format
+This module is responsible for managing everything related with 
+    - path creation, 
+    - input text file creation/open/save
+    - output text file creation and 
+    - parsed json file in dict format
 
 """
-# points to "/song_analyzer/data" (project root)
 DATA_DIR = BASE_DIR / "data"/ "exports"
 
 logger = logging.getLogger(__name__)
