@@ -20,10 +20,9 @@ from song_analyzer.llm.client import analyze_lyrics
 from song_analyzer.llm.prompts import PROMPT_VERSION
 from song_analyzer.schemas.analysis import SCHEMA_VERSION
 from song_analyzer.validation.deterministic import validate_analysis
-from song_analyzer.validation.structural import (
-    parse_json,
-    validate_final_analysis,
-)
+from song_analyzer.validation.structural import (parse_json,validate_final_analysis)
+from song_analyzer.reliability.retry import RetryPolicy
+from song_analyzer.reliability.retry_runner import run_llm_with_retry
 
 def run_pipeline(input_path: Path) -> None:
 
@@ -86,12 +85,30 @@ def run_pipeline(input_path: Path) -> None:
 
     logger.info("Submitting '%s' by '%s' for LLM analysis.", song_input.song_title, song_input.artist)
 
-    raw_output = analyze_lyrics(artist=song_input.artist, song_title=song_input.song_title, clean_text=numbered_lyrics,)
+    retry_policy = RetryPolicy(max_attempts=3)
 
-    if not raw_output:
-        logger.error( "The LLM returned no usable response for '%s' by '%s'.", song_input.song_title, song_input.artist)
-        print("The LLM analysis failed.")
+    llm_result = run_llm_with_retry(
+        operation=lambda: analyze_lyrics(
+            artist=song_input.artist,
+            song_title=song_input.song_title,
+            clean_text=numbered_lyrics,
+        ),
+        policy=retry_policy,
+    )
+
+    # Stop the pipeline when the LLM request returns a structured failure.
+    if not llm_result.is_success:
+        failure = llm_result.failure
+
+        if failure is not None:
+            logger.error("LLM request failed | code=%s | message=%s",failure.code,failure.message)
+
+            print(f"LLM analysis failed: {failure.message}")
+
         return
+
+    # A successful LLMResult contains the raw response text.
+    raw_output = llm_result.output
 
     logger.info("Received LLM response for '%s' by '%s'.", song_input.song_title, song_input.artist)
 

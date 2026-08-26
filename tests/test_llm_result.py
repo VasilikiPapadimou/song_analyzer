@@ -1,3 +1,9 @@
+""" This Module tests this rule 
+     LLMResult must contain:
+     output  OR  failure
+     never both
+     never neither
+"""
 import pytest
 
 from song_analyzer.llm.result import LLMResult
