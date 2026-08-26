@@ -3,6 +3,7 @@ from collections.abc import Callable
 
 from song_analyzer.llm.result import LLMResult
 from song_analyzer.reliability.retry import RetryPolicy
+from song_analyzer.reliability.attempts import FailedAttempt
 
 '''
         This module actually performs the retries. 
@@ -17,13 +18,13 @@ logger = logging.getLogger(__name__)
 def run_llm_with_retry(
     operation: Callable[[], LLMResult],
     policy: RetryPolicy,
+    on_failed_attempt: Callable[[FailedAttempt], None] | None = None,
 ) -> LLMResult:
 
     """Run an LLM operation with bounded retry attempts."""
 
     for attempt_number in range(1, policy.max_attempts + 1):
         result = operation()
-
         # Stop immediately when the request succeeds.
         if result.is_success:
             return result
@@ -34,9 +35,19 @@ def run_llm_with_retry(
         if failure is None:
             raise RuntimeError("Failed LLMResult did not contain a Failure.")
 
+        # Report every failed attempt before deciding whether to retry.
+        failed_attempt = FailedAttempt(
+            attempt_number=attempt_number,
+            failure=failure,
+        )
+
+        if on_failed_attempt is not None:
+            on_failed_attempt(failed_attempt)
+
         # Stop when the failure or attempt number does not allow a retry.
         if not policy.should_retry(failure, attempt_number):
             return result
+
 
         logger.warning(
             "Retrying LLM request after %s. Attempt %s of %s failed.",

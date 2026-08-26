@@ -16,6 +16,13 @@ from song_analyzer.input_preprocess import (
     parse_song_input,
     preprocess_text,
 )
+from song_analyzer.file_handling import (
+    create_song_folder,
+    input_read,
+    save_analysis,
+    save_failed_attempt,
+    save_text,
+)
 from song_analyzer.llm.client import analyze_lyrics
 from song_analyzer.llm.prompts import PROMPT_VERSION
 from song_analyzer.schemas.analysis import SCHEMA_VERSION
@@ -88,14 +95,19 @@ def run_pipeline(input_path: Path) -> None:
     retry_policy = RetryPolicy(max_attempts=3)
 
     llm_result = run_llm_with_retry(
-        operation=lambda: analyze_lyrics(
-            artist=song_input.artist,
-            song_title=song_input.song_title,
-            clean_text=numbered_lyrics,
-        ),
-        policy=retry_policy,
-    )
-
+    operation=lambda: analyze_lyrics(
+        artist=song_input.artist,
+        song_title=song_input.song_title,
+        clean_text=numbered_lyrics,
+    ),
+    policy=retry_policy,
+    on_failed_attempt=lambda attempt: save_failed_attempt(
+        song_folder=song_folder,
+        attempt=attempt,
+        model=LLM_MODEL,
+        prompt_version=PROMPT_VERSION,
+    ),
+)
     # Stop the pipeline when the LLM request returns a structured failure.
     if not llm_result.is_success:
         failure = llm_result.failure

@@ -4,6 +4,7 @@ import json
 import logging
 import re
 from song_analyzer.config import BASE_DIR
+from song_analyzer.reliability.attempts import FailedAttempt
 
 """ 
 This module is responsible for managing everything related with 
@@ -91,3 +92,30 @@ def save_analysis(path: Path, analysis: dict) -> Path:
         json.dumps(analysis, indent=2, ensure_ascii=False), encoding="utf-8"
     )
     return path
+
+
+def save_failed_attempt(song_folder: Path, attempt: FailedAttempt, model: str, prompt_version: str) -> Path:
+    """Save one failed processing attempt for later inspection."""
+
+    failed_attempts_dir = song_folder / "failed_attempts"
+
+    attempt_path = (failed_attempts_dir/ f"attempt_{attempt.attempt_number}.json")
+
+    attempt_data = {
+        "attempt_number": attempt.attempt_number,
+        "occurred_at": attempt.occurred_at.isoformat(),
+        "model": model,
+        "prompt_version": prompt_version,
+        "failure": {
+            "code": attempt.failure.code.value,
+            "message": attempt.failure.message,
+            "details": list(attempt.failure.details),
+        },
+        "raw_output": attempt.raw_output,
+    }
+
+    attempt_path.parent.mkdir(parents=True, exist_ok=True)
+
+    attempt_path.write_text(json.dumps(attempt_data,indent=2,ensure_ascii=False),encoding="utf-8")
+
+    return attempt_path

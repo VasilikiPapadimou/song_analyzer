@@ -99,3 +99,72 @@ def test_multiple_retries() -> None:
     assert result.is_success is False
     assert operation.call_count == 3
     assert policy.should_retry.call_count == 3
+
+
+# A failed attempt is reported before the runner retries.
+def test_reports_failed_attempt() -> None:
+    failure = Failure(
+        code=FailureCode.API_TRANSIENT_ERROR,
+        message="Temporary API failure.",
+    )
+
+    operation = Mock(
+        side_effect=[
+            LLMResult(failure=failure),
+            LLMResult(output='{"status": "ok"}'),
+        ]
+    )
+
+    policy = Mock(spec=RetryPolicy)
+    policy.max_attempts = 3
+    policy.should_retry.return_value = True
+
+    on_failed_attempt = Mock()
+
+    run_llm_with_retry(
+        operation=operation,
+        policy=policy,
+        on_failed_attempt=on_failed_attempt,
+    )
+
+    on_failed_attempt.assert_called_once()
+
+    failed_attempt = on_failed_attempt.call_args.args[0]
+
+    assert failed_attempt.attempt_number == 1
+    assert failed_attempt.failure == failure
+
+
+# Every failed attempt is reported with its correct attempt number.
+def test_reports_each_failed_attempt() -> None:
+    failure = Failure(
+        code=FailureCode.API_RATE_LIMITED,
+        message="Rate limit reached.",
+    )
+
+    operation = Mock(
+        return_value=LLMResult(failure=failure)
+    )
+
+    policy = Mock(spec=RetryPolicy)
+    policy.max_attempts = 3
+    policy.should_retry.side_effect = [
+        True,
+        True,
+        False,
+    ]
+
+    on_failed_attempt = Mock()
+
+    run_llm_with_retry(
+        operation=operation,
+        policy=policy,
+        on_failed_attempt=on_failed_attempt,
+    )
+
+    reported_attempts = [
+        call.args[0].attempt_number
+        for call in on_failed_attempt.call_args_list
+    ]
+
+    assert reported_attempts == [1, 2, 3]

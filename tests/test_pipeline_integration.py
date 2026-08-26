@@ -237,3 +237,14 @@ def test_pipeline_retries_then_succeeds(tmp_path: Path, monkeypatch) -> None:
 
     assert mock_analyze.call_count == 2
     assert len(analysis_files) == 1
+
+    failed_attempt_files = list(output_dir.rglob("failed_attempts/attempt_1.json"))
+    assert len(failed_attempt_files) == 1
+
+
+    failed_attempt_data = json.loads(failed_attempt_files[0].read_text(encoding="utf-8"))
+
+    assert failed_attempt_data["attempt_number"] == 1
+    assert failed_attempt_data["failure"]["code"] == "API_TRANSIENT_ERROR"
+    assert failed_attempt_data["failure"]["message"] == "Temporary API failure."
+    assert failed_attempt_data["raw_output"] is None
